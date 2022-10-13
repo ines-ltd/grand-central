@@ -1,2 +1,3 @@
-# grand-central
+# Grand Central
+
 The Grand Central Project
