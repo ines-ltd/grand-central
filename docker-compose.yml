@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+
+  server:
+    build: ./server
+    volumes:
+      - ./server:/src
+    ports:
+      - "5000:5000"
+    
+  client:
+    build: ./client
+    volumes:
+      - ./client:/src
+    ports:
+      - "3000:3000"
