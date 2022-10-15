@@ -38,7 +38,7 @@ const sortedData = computed(() => {
     console.log(a, b)
     return a[sort.key] > b[sort.key]
     ? sort.asc
-    : b[sort.key] > a[sort.key] ? -sort.asc : 0
+    : (b[sort.key] > a[sort.key] ? -sort.asc : 0)
   })
 
 })
