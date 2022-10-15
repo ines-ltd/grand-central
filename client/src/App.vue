@@ -25,7 +25,7 @@ function toggleNav () {
 
   <main>
 
-  <nav id="left-nav" :class="{ 'hide': state.showNav }">
+  <nav id="left-nav" :class="{ 'hide': !state.showNav }">
     <RouterLink to="/" class="nav-item">My Requests</RouterLink>
     <RouterLink to="/" class="nav-item">My Tasks</RouterLink>
     <RouterLink to="/" class="nav-item">My Projects</RouterLink>
@@ -34,6 +34,13 @@ function toggleNav () {
     <RouterLink to="/" class="nav-item">Subscriptions</RouterLink>
     <RouterLink to="/" class="nav-item">Analytics</RouterLink>
     <RouterLink to="/" class="nav-item">Admin</RouterLink>
+
+    <div
+      v-if="state.showNav == true"
+      class="scrim"
+      @click="state.showNav = false"
+    />
+
   </nav>
 
   <article>
@@ -74,7 +81,7 @@ article {
 }
 
 .material-icons {
-  padding-top: 3px;
+  font-size: 24px;
 }
 
 .menu-btn {
@@ -114,6 +121,30 @@ article {
 
 .hide {
   margin-left: calc(0px - var(--nav-width));
+}
+
+.scrim {
+  visibility: hidden;
+}
+
+@media (max-width: 1024px) {
+  nav {
+    position: absolute;
+    z-index: 2;
+  }
+
+  .scrim {
+    position: absolute;
+    left: var(--nav-width);
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.8;
+    z-index: 1;
+    cursor: pointer;
+    visibility: visible;
+  }
 }
 
 </style>
