@@ -1,30 +1,119 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-console.log(import.meta.env)
+import { reactive } from 'vue'
+
+const state = reactive({ showNav: false })
+
+function toggleNav () {
+  state.showNav = !state.showNav
+}
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+
+  <header>
+    <button class="menu-btn" @click="toggleNav">
+      <span class="material-icons" v-text="'menu'"/>
+    </button>
+    <RouterLink to="/" class="header-item">
+      <span class="bold-title">GC</span>
+    </RouterLink>
+    <RouterLink to="/workflow" class="header-item first-header-item">Workflow</RouterLink>
+    <RouterLink to="/governance" class="header-item">Governance</RouterLink>
+    <RouterLink to="/raptor" class="header-item">Raptor</RouterLink>
+    <RouterLink to="/about" class="header-item">About</RouterLink>
+  </header>
+
+  <main>
+
+  <nav id="left-nav" :class="{ 'hide': state.showNav }">
+    <RouterLink to="/" class="nav-item">My Requests</RouterLink>
+    <RouterLink to="/" class="nav-item">My Tasks</RouterLink>
+    <RouterLink to="/" class="nav-item">My Projects</RouterLink>
+    <RouterLink to="/" class="nav-item">My Team Tasks</RouterLink>
+    <RouterLink to="/" class="nav-item">All Projects</RouterLink>
+    <RouterLink to="/" class="nav-item">Subscriptions</RouterLink>
+    <RouterLink to="/" class="nav-item">Analytics</RouterLink>
+    <RouterLink to="/" class="nav-item">Admin</RouterLink>
+  </nav>
+
+  <article>
+    <Suspense>
+      <RouterView/>
+    </Suspense>
+  </article>
+  
+  </main>
+
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
+
+header {
+  color: whitesmoke;
+  background-color: var(--secondary);
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+main {
+  display: grid;
+  grid-template-columns: auto 1fr;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+nav {
+  width: var(--nav-width);
+  height: calc(100vh - var(--header-height));
+  background-color: var(--primary);
+  color: whitesmoke;
+  transition: margin-left 0.3s;
 }
+
+article {
+  padding: 1em;
+}
+
+.material-icons {
+  padding-top: 3px;
+}
+
+.menu-btn {
+  border: none;
+  background-color: transparent;
+  color: whitesmoke;
+  cursor: pointer;
+  margin: 1em;
+}
+
+.bold-title {
+  font-weight: 800;
+  font-size: large;
+}
+
+.first-header-item {
+  margin-left: auto;
+}
+
+.header-item {
+  margin-right: 1em;
+  color: whitesmoke;
+  text-decoration: none;
+}
+
+.nav-item {
+  display: block;
+  color: whitesmoke;
+  text-decoration: none;
+  padding: 1em;
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  background-color: var(--primary-dark);
+}
+
+.hide {
+  margin-left: calc(0px - var(--nav-width));
+}
+
 </style>
