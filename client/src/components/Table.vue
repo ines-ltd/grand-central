@@ -53,6 +53,7 @@ function sortByKey (key) {
     sort.key = key
     sort.asc = 1
   }
+
 }
 
 function headerText (key) {
