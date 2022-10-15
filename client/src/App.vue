@@ -81,7 +81,7 @@ article {
 }
 
 .material-icons {
-  padding-top: 3px;
+  font-size: 24px;
 }
 
 .menu-btn {
