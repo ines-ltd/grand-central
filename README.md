@@ -1,6 +1,6 @@
 # Grand Central
 
-The Grand Central Project aims to...
+The Grand Central Project aims to build a full workflow system, complete with customer requests.
 
 ## User stories
 
