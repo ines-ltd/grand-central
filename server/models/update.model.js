@@ -1,17 +1,20 @@
 const { DataTypes, Model } = require('sequelize')
 const db = require('../db/db')
 
-class Subscription extends Model { }
+class Update extends Model { }
 
-Event.init({
+Update.init({
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true
   },
-  event: {
+  type: {
+    type: DataTypes.STRING
+  },
+  description: {
     type: DataTypes.STRING
   }
 }, { sequelize: db })
 
-module.exports = Event
+module.exports = Update
