@@ -5,6 +5,7 @@ const User = require('./user.model')
 const Comment = require('./comment.model')
 const Project= require('./project.model')
 
+// 1. User -- 1. Manager
 User.belongsTo(User, { as: 'manager', foreignKey: 'managerId' })
 
 console.log('Associations created!')

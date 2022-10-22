@@ -4,7 +4,7 @@ ENV PORT=5000
 
 COPY . .
 
-RUN npm ci
+RUN ["npm", "i"]
 
 EXPOSE 5000
 
