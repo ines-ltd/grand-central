@@ -1,16 +1,16 @@
 const db = require('./db')
-const { Event } = require('../models/index')
+
+const {
+  User
+} = require('../models/index')
+
+const data = require('./seed.data')
 
 async function seed () {
 
   await db.sync({ force: true })
 
-  const event = await Event.create({
-    ein: 123,
-    time: new Date(),
-    area: 'fity-one',
-    level: 9000
-  })
+  const users = await Promise.all(data.users.map(u => User.create(u)))
 
 }
 
