@@ -13,4 +13,4 @@ function serve (port) {
   app.listen(port, () => void console.log(`Server listening on port ${port}`))
 }
 
-serve(process.env.PORT)
+serve(5000)

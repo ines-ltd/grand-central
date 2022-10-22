@@ -12,8 +12,18 @@ async function seed () {
 
   const users = await Promise.all(data.users.map(u => User.create(u)))
 
+  const josh = await User.create({
+    firstName: "Josh",
+    lastName: "Haines",
+    email: "jh@ines.com"
+  })
+
+  await users[0].setManager(josh)
+
+
 }
 
 seed()
 
 module.exports = seed
+
