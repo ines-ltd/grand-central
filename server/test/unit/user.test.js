@@ -18,16 +18,11 @@ describe('Users', () => {
   ]
 
   beforeAll(() => {
-    return Promise.all([
-      ...data.map(u => User.create(u)),
-      db.sync()
-    ])
+    return Promise.all(data.map(u => User.create(u)))
   })
 
   afterAll(() => {
-    return Promise.all(data.map(u => {
-      return User.destroy({ where: { email: u.email } })
-    }))
+    return Promise.all(data.map(u => User.destroy({ where: { email: u.email } })))
   })
 
   test('should have first name, last name and email', async () => { 
@@ -42,7 +37,7 @@ describe('Users', () => {
     expect(user.ein).toBeTruthy()
   })
 
-  test('should manage eachother', async () => {
+  test('should be able to manage eachother', async () => {
     const customer = await User.findOne({ where: { email: 'jh@ines.dev' } })
     const manager = await User.findOne({ where: { email: 'darth@empire.org' } })
     await customer.setManager(manager)
