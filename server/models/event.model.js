@@ -10,16 +10,13 @@ Event.init({
     primaryKey: true
   },
   time: {
-    type: DataTypes.DATE
-  },
-  ein: {
-    type: DataTypes.UUID
+    type: DataTypes.STRING
   },
   area: {
     type: DataTypes.STRING
   },
   level: {
-    type: DataTypes.STRING
+    type: DataTypes.NUMBER
   }
 }, { sequelize: db })
 
