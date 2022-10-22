@@ -8,4 +8,4 @@ jobs:
     - name: Install server
       run: cd server && npm i
     - name: Run server tests
-      run: npm run test
+      run: cd server && npm run test
