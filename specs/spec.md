@@ -1,5 +1,7 @@
 # Grand Central
 
+%%{init: {'theme':'forest'}}%%
+
 It is a system whereby customers can make requests for collateral from the data team (reports etc). The request, when accepted, results in a project, which the system also manages by decomposing the project into increments and timeboxes.
 
 ## Entity Relationships
