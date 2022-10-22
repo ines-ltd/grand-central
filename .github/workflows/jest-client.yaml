@@ -1,0 +1,11 @@
+name: CI
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install client
+      run: cd client && npm i
+    - name: Run client tests
+      run: npm run test
