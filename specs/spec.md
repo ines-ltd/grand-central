@@ -5,8 +5,6 @@ It is a system whereby customers can make requests for collateral from the data 
 ## Entity Relationships
 
 ```mermaid
-%%{init: {'theme':'forest'}}%%
-
 erDiagram
 
   EVENT {
@@ -134,8 +132,6 @@ erDiagram
 ### Project creation
 
 ```mermaid
-%%{init: {'theme':'forest'}}%%
-
 sequenceDiagram
   actor CUSTOMER
   participant REQUEST
@@ -167,8 +163,6 @@ sequenceDiagram
 ## Flow diagram
 
 ```mermaid
-%%{init: {'theme':'forest'}}%%
-
 flowchart TD
   Customer[Customer submits request] -->Review{Review}
   Review --> Rejected
