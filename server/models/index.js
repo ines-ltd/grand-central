@@ -15,6 +15,9 @@ Request.belongsTo(User, { as: 'owner' })
 User.belongsToMany(Request, { through: 'Subscriptions' })
 Request.belongsToMany(User, { as: 'subscriber', through: 'Subscriptions' })
 
+Request.belongsToMany(Project, { through: 'Project_Request' })
+Project.belongsToMany(Request, { through: 'Project_Request' })
+
 module.exports = {
   Event,
   Update,
