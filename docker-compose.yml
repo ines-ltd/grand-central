@@ -14,6 +14,5 @@ services:
     build: ./client
     volumes:
       - ./client:/src
-      - /src/node_modules
     ports:
       - "3000:3000"
