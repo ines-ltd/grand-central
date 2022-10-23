@@ -18,6 +18,7 @@ const users = [
 
 const requests = [
   {
+    id: 1,
     name: 'Cat report',
     description: 'Some info on all the cats',
     category: 'defcon 6',
@@ -28,7 +29,18 @@ const requests = [
   }
 ]
 
+projects = [
+  {
+    name: 'Cat project',
+    quickWin: false,
+    projectName: 'Spectre',
+    priorityScore: 7,
+    platform: 'Sky',
+  }
+]
+
 module.exports = {
   users,
-  requests
+  requests,
+  projects
 }
