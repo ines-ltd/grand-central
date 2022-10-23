@@ -6,6 +6,7 @@ services:
     build: ./server
     volumes:
       - ./server:/src
+      - /src/node_modules # this is needed to make sqlite3 work - it prevents node_modules in the host syncing with node_modules in the container
     ports:
       - "5000:5000"
     
@@ -13,5 +14,6 @@ services:
     build: ./client
     volumes:
       - ./client:/src
+      - /src/node_modules
     ports:
       - "3000:3000"

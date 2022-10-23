@@ -4,7 +4,9 @@ ENV PORT=5000
 
 COPY . .
 
-RUN ["npm", "i"]
+RUN npm i -g sqlite3
+
+RUN npm ci
 
 EXPOSE 5000
 
