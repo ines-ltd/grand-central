@@ -4,18 +4,16 @@ const db = require('../db/db')
 class Project extends Model { }
 
 Project.init({
-  projectId: {
+  id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true
   },
   holdReason: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: DataTypes.STRING
   },
   status: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: DataTypes.STRING
   },
   quickWin: {
     type: DataTypes.STRING,
@@ -34,48 +32,37 @@ Project.init({
     allowNull: false
   },
   wireframe: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: DataTypes.STRING
   },
   moscow: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: DataTypes.STRING
   },
   userStory: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: DataTypes.STRING
   },
   wireFrameSkip: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: DataTypes.BOOLEAN
   },
   moscowSkip: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: DataTypes.BOOLEAN
   },
   userStorySkip: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: DataTypes.BOOLEAN
   },
   projectEcd: {
-    type: DataTypes.DATE,
-    allowNull: false
+    type: DataTypes.DATE
   },
   milestone: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: DataTypes.STRING
   },
   incrementCount: {
-    type: DataTypes.NUMBER,
-    allowNull: false
+    type: DataTypes.INTEGER
   },
   timeboxPerIncCount: {
-    type: DataTypes.NUMBER,
-    allowNull: false
+    type: DataTypes.INTEGER
   },
   timeBoxLength: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: DataTypes.STRING
   }
 
 }, { sequelize: db })
