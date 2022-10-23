@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "998657bc-1b22-4d58-9fa7-fd4714a780d6",
+    "colName": "Grand Central",
+    "created": "2022-10-23T19:23:47.071Z",
+    "sortNum": 10000,
+    "folders": [],
+    "settings": {
+      "headers": [],
+      "tests": [],
+      "options": {
+        "baseUrl": "http://localhost:5000"
+      }
+    }
+  }
+]
