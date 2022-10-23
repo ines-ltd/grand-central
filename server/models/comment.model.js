@@ -14,11 +14,11 @@ Comment.init({
     allowNull: false
   },
   commentDt: {
-    type: DataTypes.STRING,
+    type: DataTypes.DATE,
     allowNull: false
   },
   commentEin: {
-    type: DataTypes.STRING,
+    type: DataTypes.NUMBER,
     allowNull: false
   }
 

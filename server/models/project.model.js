@@ -26,7 +26,7 @@ Project.init({
     allowNull: false
   },
   priorityScore: {
-    type: DataTypes.STRING,
+    type: DataTypes.NUMBER,
     allowNull: false
   },
   platform: {
@@ -58,7 +58,7 @@ Project.init({
     allowNull: false
   },
   projectEcd: {
-    type: DataTypes.STRING,
+    type: DataTypes.DATE,
     allowNull: false
   },
   milestone: {
@@ -66,11 +66,11 @@ Project.init({
     allowNull: false
   },
   incrementCount: {
-    type: DataTypes.STRING,
+    type: DataTypes.NUMBER,
     allowNull: false
   },
   timeboxPerIncCount: {
-    type: DataTypes.STRING,
+    type: DataTypes.NUMBER,
     allowNull: false
   },
   timeBoxLength: {

@@ -4,6 +4,8 @@ const Request = require('./request.model')
 const User = require('./user.model')
 const Comment = require('./comment.model')
 const Project = require('./project.model')
+const People = require('./people.model')
+const Task = require('./task.model')
 
 User.belongsTo(User, { as: 'manager' })
 
@@ -19,5 +21,7 @@ module.exports = {
   Request,
   User,
   Comment,
-  Project
+  Project,
+  People,
+  Task
 }
