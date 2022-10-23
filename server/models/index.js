@@ -3,12 +3,15 @@ const Update = require('./update.model')
 const Request = require('./request.model')
 const User = require('./user.model')
 const Comment = require('./comment.model')
-const Project= require('./project.model')
+const Project = require('./project.model')
 
-// 1. User -- 1. Manager
-User.belongsTo(User, { as: 'manager', foreignKey: 'managerId' })
+User.belongsTo(User, { as: 'manager' })
 
-console.log('Associations created!')
+User.hasMany(Request)
+Request.belongsTo(User, { as: 'owner' })
+
+User.belongsToMany(Request, { through: 'Subscriptions' })
+Request.belongsToMany(User, { as: 'subscriber', through: 'Subscriptions' })
 
 module.exports = {
   Event,

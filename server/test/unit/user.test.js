@@ -1,6 +1,4 @@
-const _jest = require('jest')
 const { User } = require('../../models')
-const db = require('../../db/db')
 
 describe('Users', () => {
 
@@ -41,7 +39,7 @@ describe('Users', () => {
     const customer = await User.findOne({ where: { email: 'jh@ines.dev' } })
     const manager = await User.findOne({ where: { email: 'darth@empire.org' } })
     await customer.setManager(manager)
-    expect(customer.managerId).toBe(manager.ein)
+    expect(customer.managerEin).toBe(manager.ein)
   })
 
 })

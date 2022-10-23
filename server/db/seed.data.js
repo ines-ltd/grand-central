@@ -16,6 +16,19 @@ const users = [
   }
 ]
 
+const requests = [
+  {
+    name: 'Cat report',
+    description: 'Some info on all the cats',
+    category: 'defcon 6',
+    rationale: 'I think they are cute',
+    audience: 'me, durrr',
+    urgency: 'VERY',
+    status: 'snafu'
+  }
+]
+
 module.exports = {
-  users
+  users,
+  requests
 }
