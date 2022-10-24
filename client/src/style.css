@@ -17,12 +17,58 @@ body {
   grid-template-rows: auto 1fr;
 }
 
-h1 {
+h1, h2, h3, h4, h5 {
   padding: 0;
   margin: 0;
+}
+
+h1 {
+  font-size: xx-large;
+}
+
+h2 {
+  font-size: x-large;
+}
+
+button {
+  color: whitesmoke;
+  background-color: var(--primary);
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 7px;
+  font-weight: bold;
+}
+
+button.secondary {
+  color: var(--primary);
+  background-color: transparent;
+  border: solid 1px var(--primary);
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 7px;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: var(--primary-dark);
+}
+
+button.secondary:hover {
+  background-color: #33a06f2f;
 }
 
 .material-icons {
   font-size: inherit;
   vertical-align: middle;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
