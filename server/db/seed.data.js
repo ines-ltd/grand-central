@@ -1,5 +1,6 @@
 const users = [
   {
+    ein: '9fa67626-6784-4194-a357-88b0021cec8c',
     firstName: 'Lara',
     lastName: 'Croft',
     email: 'lara@hotmail.co.uk'

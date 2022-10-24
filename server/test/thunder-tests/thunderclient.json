@@ -2,13 +2,13 @@
   {
     "_id": "56183b5a-75b2-45d9-98df-18d3835e1feb",
     "colId": "998657bc-1b22-4d58-9fa7-fd4714a780d6",
-    "containerId": "",
+    "containerId": "ec8f1b56-8c3d-4104-8db8-0f4f8493fa24",
     "name": "ping",
     "url": "/ping",
     "method": "GET",
     "sortNum": 10000,
     "created": "2022-10-23T19:24:39.456Z",
-    "modified": "2022-10-23T19:26:16.642Z",
+    "modified": "2022-10-23T22:16:10.671Z",
     "headers": [],
     "params": [],
     "tests": [
@@ -23,13 +23,13 @@
   {
     "_id": "426e936d-e462-4212-aa5f-7c02b41d25aa",
     "colId": "998657bc-1b22-4d58-9fa7-fd4714a780d6",
-    "containerId": "",
+    "containerId": "ec8f1b56-8c3d-4104-8db8-0f4f8493fa24",
     "name": "request",
     "url": "/request/1",
     "method": "GET",
-    "sortNum": 20000,
+    "sortNum": 30000,
     "created": "2022-10-23T19:26:44.288Z",
-    "modified": "2022-10-23T19:27:04.867Z",
+    "modified": "2022-10-23T22:16:12.894Z",
     "headers": [],
     "params": [],
     "tests": [
@@ -44,6 +44,160 @@
         "custom": "",
         "action": "isjson",
         "value": ""
+      }
+    ]
+  },
+  {
+    "_id": "59576bec-a3c0-41e0-8392-b9dcb130e4fa",
+    "colId": "998657bc-1b22-4d58-9fa7-fd4714a780d6",
+    "containerId": "ec8f1b56-8c3d-4104-8db8-0f4f8493fa24",
+    "name": "request",
+    "url": "/request",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2022-10-23T21:17:27.752Z",
+    "modified": "2022-10-23T22:16:11.833Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"Dog report\",\n  \"description\": \"Some info on all the dogs\",\n  \"category\": \"defcon 3\",\n  \"rationale\": \"We think they are awesome\",\n  \"audience\": \"Crufts\",\n  \"urgency\": \"Low\",\n  \"status\": \"hungry\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "9fa67626-6784-4194-a357-88b0021cec8c"
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "201"
+      },
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "schema",
+        "value": "{ \"type\": \"object\", \"properties\": { \"name\": { \"type\": \"string\" } } }"
+      }
+    ]
+  },
+  {
+    "_id": "b20031a9-de62-44c2-80ec-b2d139c2d6a5",
+    "colId": "998657bc-1b22-4d58-9fa7-fd4714a780d6",
+    "containerId": "ec8f1b56-8c3d-4104-8db8-0f4f8493fa24",
+    "name": "request (right auth)",
+    "url": "/request/1",
+    "method": "PUT",
+    "sortNum": 40000,
+    "created": "2022-10-23T21:35:49.753Z",
+    "modified": "2022-10-23T22:16:13.982Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      },
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"New name\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "9fa67626-6784-4194-a357-88b0021cec8c"
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "contains",
+        "value": "\"New name\""
+      }
+    ]
+  },
+  {
+    "_id": "52d124dc-8c74-4519-ac12-f9c44e57223f",
+    "colId": "998657bc-1b22-4d58-9fa7-fd4714a780d6",
+    "containerId": "ec8f1b56-8c3d-4104-8db8-0f4f8493fa24",
+    "name": "request (wrong auth)",
+    "url": "/request/1",
+    "method": "PUT",
+    "sortNum": 35000,
+    "created": "2022-10-23T21:59:31.587Z",
+    "modified": "2022-10-23T22:16:44.456Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json"
+      },
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"New name\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "9fa67626-6784-4194-a357-88b0021cec8d"
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "401"
+      }
+    ]
+  },
+  {
+    "_id": "e842d814-822e-4ed9-b3c4-e9c1ab243c8e",
+    "colId": "998657bc-1b22-4d58-9fa7-fd4714a780d6",
+    "containerId": "ec8f1b56-8c3d-4104-8db8-0f4f8493fa24",
+    "name": "request (right auth)",
+    "url": "/request/1",
+    "method": "DELETE",
+    "sortNum": 60000,
+    "created": "2022-10-23T22:03:42.008Z",
+    "modified": "2022-10-23T22:16:16.163Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "9fa67626-6784-4194-a357-88b0021cec8c"
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "204"
       }
     ]
   }
