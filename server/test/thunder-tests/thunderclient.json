@@ -250,5 +250,36 @@
         "value": "204"
       }
     ]
+  },
+  {
+    "_id": "0f6c3abb-9b1d-4d75-a303-1b2d790eb6f9",
+    "colId": "998657bc-1b22-4d58-9fa7-fd4714a780d6",
+    "containerId": "ec8f1b56-8c3d-4104-8db8-0f4f8493fa24",
+    "name": "requests",
+    "url": "/request",
+    "method": "GET",
+    "sortNum": 31250,
+    "created": "2022-10-24T22:12:39.223Z",
+    "modified": "2022-10-24T22:13:27.667Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "9fa67626-6784-4194-a357-88b0021cec8c"
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "isjson",
+        "value": ""
+      }
+    ]
   }
 ]

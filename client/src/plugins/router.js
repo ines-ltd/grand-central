@@ -5,6 +5,8 @@ import Governance from '../pages/Governance.vue'
 import Raptor from '../pages/Raptor.vue'
 import About from '../pages/About.vue'
 
+import Requests from '../pages/Requests.vue'
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -27,6 +29,10 @@ const router = createRouter({
     {
       path: '/about',
       component: About
+    },
+    {
+      path: '/requests',
+      component: Requests
     }
   ]
 })

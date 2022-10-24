@@ -1,34 +1,28 @@
 <script setup>
 import { reactive, computed } from 'vue'
 
+const props = defineProps(['data', 'headers'])
+
+function filterObject (obj, fn) {
+  const result = {}
+  for (const key in obj) {
+    if (fn(key)) result[key] = obj[key]
+  }
+  return result
+}
+
+function objOnly (obj, arr) {
+  return filterObject(obj, (key) => arr.includes(key))
+}
+
+const data = Object.keys(props.headers).length
+  ? props.data.map(row => objOnly(row, Object.keys(props.headers)))
+  : data
 
 const sort = reactive({
   key: null,
   asc: 0
 })
-
-const headers = {
-  price: 'Cost',
-  rating: 'User Rating'
-}
-
-const data = [
-  {
-    name: 'T-Shirt',
-    price: 5.99,
-    rating: 7
-  },
-  {
-    name: 'Jeans',
-    price: 7.50,
-    rating: 4
-  },
-  {
-    name: 'Shoes',
-    price: 14.99,
-    rating: 9
-  }
-]
 
 const sortedData = computed(() => {
 
@@ -58,7 +52,7 @@ function sortByKey (key) {
 
 function headerText (key) {
 
-  const titleCase = headers[key] || key
+  const titleCase = props.headers[key] || key
     .split(' ')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ')

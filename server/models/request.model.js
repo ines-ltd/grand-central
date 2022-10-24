@@ -29,16 +29,15 @@ Request.init({
     allowNull: false
   },
   audience: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: DataTypes.STRING
   },
   urgency: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: DataTypes.STRING
   },
   status: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    defaultValue: 'pending'
   }
 }, { sequelize: db })
 

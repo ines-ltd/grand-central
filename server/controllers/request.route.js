@@ -10,6 +10,7 @@ router.post('/', auth, async (req, res) => {
   try {
     const request = await Request.create(req.body)
     await request.setOwner(req.user)
+    await req.user.addRequest(request)
     await request.addSubscriber(req.user)
     return res.status(201).send(request)
   } catch (error) {
@@ -26,6 +27,19 @@ router.get('/:id', async (req, res) => {
     if (!request) return res.sendStatus(404)
     return res.status(200).send(request)
   } catch (error) {
+    res.status(500).send(error)
+  }
+})
+
+/**
+ * Read all
+ */
+router.get('/', auth, async (req, res) => {
+  try {
+    const requests = await req.user.getRequests()
+    return res.status(200).send(requests)
+  } catch (error) {
+    console.error(error)
     res.status(500).send(error)
   }
 })
@@ -59,7 +73,6 @@ router.put('/:id', auth, async (req, res) => {
     await request.destroy()
     return res.status(204).send(request)
   } catch (error) {
-    console.error(error)
     res.status(500).send(error)
   }
 })

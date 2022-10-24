@@ -18,7 +18,7 @@ User.belongsTo(User, { as: 'manager' })
 User.hasMany(Request)
 Request.belongsTo(User, { as: 'owner' })
 
-User.belongsToMany(Request, { through: 'Subscriptions' })
+User.belongsToMany(Request, { as: 'subscription', through: 'Subscriptions' })
 Request.belongsToMany(User, { as: 'subscriber', through: 'Subscriptions' })
 
 Request.belongsToMany(Project, { through: 'Project_Request' })
