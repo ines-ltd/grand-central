@@ -25,11 +25,11 @@
     "colId": "998657bc-1b22-4d58-9fa7-fd4714a780d6",
     "containerId": "ec8f1b56-8c3d-4104-8db8-0f4f8493fa24",
     "name": "request",
-    "url": "/request/1",
+    "url": "/request/65445e54-e350-487d-8a95-87528074120f",
     "method": "GET",
     "sortNum": 30000,
     "created": "2022-10-23T19:26:44.288Z",
-    "modified": "2022-10-23T22:16:12.894Z",
+    "modified": "2022-10-24T16:16:44.246Z",
     "headers": [],
     "params": [],
     "tests": [
@@ -56,7 +56,7 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2022-10-23T21:17:27.752Z",
-    "modified": "2022-10-23T22:16:11.833Z",
+    "modified": "2022-10-24T16:16:13.138Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -70,7 +70,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"name\": \"Dog report\",\n  \"description\": \"Some info on all the dogs\",\n  \"category\": \"defcon 3\",\n  \"rationale\": \"We think they are awesome\",\n  \"audience\": \"Crufts\",\n  \"urgency\": \"Low\",\n  \"status\": \"hungry\"\n}",
+      "raw": "{\n  \"id\": \"65445e54-e350-487d-8a95-87528074120f\",\n  \"name\": \"Dog report\",\n  \"description\": \"Some info on all the dogs\",\n  \"category\": \"defcon 3\",\n  \"rationale\": \"We think they are awesome\",\n  \"audience\": \"Crufts\",\n  \"urgency\": \"Low\",\n  \"status\": \"hungry\"\n}",
       "form": []
     },
     "auth": {
@@ -97,11 +97,11 @@
     "colId": "998657bc-1b22-4d58-9fa7-fd4714a780d6",
     "containerId": "ec8f1b56-8c3d-4104-8db8-0f4f8493fa24",
     "name": "request (right auth)",
-    "url": "/request/1",
+    "url": "/request/65445e54-e350-487d-8a95-87528074120f",
     "method": "PUT",
     "sortNum": 40000,
     "created": "2022-10-23T21:35:49.753Z",
-    "modified": "2022-10-23T22:16:13.982Z",
+    "modified": "2022-10-24T16:17:26.266Z",
     "headers": [
       {
         "name": "Accept",
@@ -142,11 +142,11 @@
     "colId": "998657bc-1b22-4d58-9fa7-fd4714a780d6",
     "containerId": "ec8f1b56-8c3d-4104-8db8-0f4f8493fa24",
     "name": "request (wrong auth)",
-    "url": "/request/1",
+    "url": "/request/65445e54-e350-487d-8a95-87528074120f",
     "method": "PUT",
     "sortNum": 35000,
     "created": "2022-10-23T21:59:31.587Z",
-    "modified": "2022-10-23T22:16:44.456Z",
+    "modified": "2022-10-24T16:17:12.047Z",
     "headers": [
       {
         "name": "Accept",
@@ -181,11 +181,61 @@
     "colId": "998657bc-1b22-4d58-9fa7-fd4714a780d6",
     "containerId": "ec8f1b56-8c3d-4104-8db8-0f4f8493fa24",
     "name": "request (right auth)",
-    "url": "/request/1",
+    "url": "/request/65445e54-e350-487d-8a95-87528074120f",
     "method": "DELETE",
     "sortNum": 60000,
     "created": "2022-10-23T22:03:42.008Z",
-    "modified": "2022-10-23T22:16:16.163Z",
+    "modified": "2022-10-24T16:17:31.558Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "9fa67626-6784-4194-a357-88b0021cec8c"
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "204"
+      }
+    ]
+  },
+  {
+    "_id": "bb5b9e19-549c-447d-aec4-a8889eb1169f",
+    "colId": "998657bc-1b22-4d58-9fa7-fd4714a780d6",
+    "containerId": "ec8f1b56-8c3d-4104-8db8-0f4f8493fa24",
+    "name": "subscribe",
+    "url": "/request/65445e54-e350-487d-8a95-87528074120f/subscribe",
+    "method": "POST",
+    "sortNum": 33750,
+    "created": "2022-10-24T15:00:52.465Z",
+    "modified": "2022-10-24T16:17:00.568Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "9fa67626-6784-4194-a357-88b0021cec8c"
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      }
+    ]
+  },
+  {
+    "_id": "cc3a97c2-de22-4db7-873f-428d677666d7",
+    "colId": "998657bc-1b22-4d58-9fa7-fd4714a780d6",
+    "containerId": "ec8f1b56-8c3d-4104-8db8-0f4f8493fa24",
+    "name": "unsubscribe",
+    "url": "/request/65445e54-e350-487d-8a95-87528074120f/subscribe",
+    "method": "DELETE",
+    "sortNum": 32500,
+    "created": "2022-10-24T15:40:50.347Z",
+    "modified": "2022-10-24T16:16:51.935Z",
     "headers": [],
     "params": [],
     "auth": {

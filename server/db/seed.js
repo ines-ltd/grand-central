@@ -21,9 +21,9 @@ async function seed () {
   await users[0].setManager(users[1])
   
   // let a user own a request
-  await requests[0].setOwner(users[0])
-  // and let them all subscribe to the request
-  await Promise.all(users.map(u => requests[0].addSubscriber(u)))
+  await requests[0].setOwner(users[1])
+  // and let one all subscribe to the request
+  await requests[0].addSubscriber(users[2])
 
   // attach a project to a request
   await requests[0].addProject(projects[0])

@@ -10,7 +10,14 @@
         "name": "request",
         "containerId": "",
         "created": "2022-10-23T22:16:08.518Z",
-        "sortNum": 10000
+        "sortNum": 10000,
+        "settings": {
+          "runOptions": {
+            "delay": 0,
+            "iterations": 2,
+            "dataFilePath": ""
+          }
+        }
       }
     ],
     "settings": {
