@@ -26,7 +26,7 @@ function toggleNav () {
   <main>
 
   <nav id="left-nav" :class="{ 'hide': !state.showNav }">
-    <RouterLink to="/" class="nav-item">My Requests</RouterLink>
+    <RouterLink to="/requests" class="nav-item">My Requests</RouterLink>
     <RouterLink to="/" class="nav-item">My Tasks</RouterLink>
     <RouterLink to="/" class="nav-item">My Projects</RouterLink>
     <RouterLink to="/" class="nav-item">My Team Tasks</RouterLink>
@@ -45,7 +45,7 @@ function toggleNav () {
 
   <article>
     <Suspense>
-      <RouterView/>
+      <RouterView />
     </Suspense>
   </article>
   
