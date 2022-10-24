@@ -6,6 +6,12 @@ const Comment = require('./comment.model')
 const Project = require('./project.model')
 const People = require('./people.model')
 const Task = require('./task.model')
+const ProjectMap = require('./projectMap.model')
+const TaskMap = require('./taskMap.model')
+const CommentMap = require('./commentMap.model')
+const increment = require('./increment.model')
+const Timebox = require('./timebox.model')
+const Subscription = require('./subscription.model')
 
 User.belongsTo(User, { as: 'manager' })
 
@@ -26,5 +32,11 @@ module.exports = {
   Comment,
   Project,
   People,
-  Task
+  Task,
+  ProjectMap,
+  TaskMap,
+  CommentMap,
+  increment,
+  Timebox,
+  Subscription
 }
