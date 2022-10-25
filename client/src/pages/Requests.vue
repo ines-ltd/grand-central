@@ -42,7 +42,7 @@ onMounted(() => {
       v-else-if="requests.length"
       :key="requests.length"
       :data="requests"
-      :headers="{ name: 'Name', description: 'Description', rationale: 'Rationale' }"
+      :headers="{ createdAt: 'Created', name: 'Name', description: 'Description', rationale: 'Rationale' }"
     />
   </Transition>
 

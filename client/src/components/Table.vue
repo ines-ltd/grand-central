@@ -3,21 +3,16 @@ import { reactive, computed } from 'vue'
 
 const props = defineProps(['data', 'headers'])
 
-function filterObject (obj, fn) {
+function objOnly (obj, arr) {
+  if (!arr.length) return obj
   const result = {}
-  for (const key in obj) {
-    if (fn(key)) result[key] = obj[key]
+  for (let key of arr) {
+    result[key] = obj[key]
   }
   return result
 }
 
-function objOnly (obj, arr) {
-  return filterObject(obj, (key) => arr.includes(key))
-}
-
-const data = Object.keys(props.headers).length
-  ? props.data.map(row => objOnly(row, Object.keys(props.headers)))
-  : data
+const data = props.data.map(row => objOnly(row, Object.keys(props.headers)))
 
 const sort = reactive({
   key: null,
@@ -28,18 +23,14 @@ const sortedData = computed(() => {
 
   if (sort.asc === 0) return data
 
-  return [...data].sort((a,b) => {
-    console.log(a, b)
-    return a[sort.key] > b[sort.key]
-    ? sort.asc
-    : (b[sort.key] > a[sort.key] ? -sort.asc : 0)
+  return [...data].sort((a, b) => {
+    [a, b] = [a, b].map(c => c[sort.key].toUpperCase())
+    return a > b ? sort.asc : a < b ? -sort.asc : 0
   })
 
 })
 
 function sortByKey (key) {
-
-  console.log('click!')
 
   if (key === sort.key) {
     sort.asc = ((sort.asc + 2) % 3) - 1
@@ -84,7 +75,7 @@ function headerText (key) {
       />
     </tr>
     <tr
-      v-for="(item,i) in sortedData"
+      v-for="(item, i) in sortedData"
       :key="`row-${i}`"
     >
       <td
