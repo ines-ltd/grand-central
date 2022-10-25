@@ -7,7 +7,9 @@ app.use(cors())
 app.use(express.json())
 
 app.get('/ping', (req, res) => {
-  res.send('PONG ' + new Date())
+  res.send({
+    msg: 'PONG ' + new Date()
+  })
 })
 
 app.use('/request', request)
