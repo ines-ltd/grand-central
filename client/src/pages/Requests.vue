@@ -1,7 +1,11 @@
 <script setup>
-import { onMounted, reactive, ref } from 'vue';
-import RequestForm from '../components/RequestForm.vue';
+import { onMounted, reactive, ref } from 'vue'
+import { format } from 'date-fns'
+import RequestForm from '../components/RequestForm.vue'
 import Table from '../components/Table.vue'
+import { useApi } from '../composables/api'
+
+const api = useApi()
 
 const form = reactive({
   show: false
@@ -9,14 +13,21 @@ const form = reactive({
 
 const requests = ref([])
 
-async function fetchRequests () {
-  const res = await fetch(`${import.meta.env.VITE_API}/request`, {
-  headers: {
-      'Authorization': `Bearer 9fa67626-6784-4194-a357-88b0021cec8c`
-    }
-  })
+const headers = {
+  createdAt: 'Created',
+  name: 'Name',
+  description: 'Description',
+  rationale: 'Rationale'
+}
 
-  requests.value = await res.json()
+const filters = {
+  createdAt: d => format(new Date(d), 'dd/MM/yyyy'),
+  updatedAt: d => format(new Date(d), 'dd/MM/yyyy')
+}
+
+async function fetchRequests () {
+  const res = await api.get('/request')
+  requests.value = res.data
 }
 
 onMounted(() => {
@@ -42,7 +53,8 @@ onMounted(() => {
       v-else-if="requests.length"
       :key="requests.length"
       :data="requests"
-      :headers="{ createdAt: 'Created', name: 'Name', description: 'Description', rationale: 'Rationale' }"
+      :headers="headers"
+      :filters="filters"
     />
   </Transition>
 
