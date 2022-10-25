@@ -66,6 +66,7 @@ header {
 main {
   display: grid;
   grid-template-columns: auto 1fr;
+  height: calc(100vh - var(--header-height));
 }
 
 nav {
@@ -78,6 +79,7 @@ nav {
 
 article {
   padding: 1em;
+  overflow-y: auto;
 }
 
 .material-icons {
