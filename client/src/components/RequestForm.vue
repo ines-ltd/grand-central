@@ -1,20 +1,13 @@
 <script setup>
 
+  import { useApi } from '../composables/api'
+  const api = useApi()
+
   const emit = defineEmits(['hide', 'submit'])
 
   async function handleSubmit (e) {
-    const data = Array
-      .from(new FormData(e.target))
-      .reduce((obj, [key, val]) => ({...obj, [key]: val || null}), {})
     
-    const res = await fetch(`${import.meta.env.VITE_API}/request`, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer 9fa67626-6784-4194-a357-88b0021cec8c`
-      }
-    })
+    const res = await api.post('/request', api.serialize(e.target))
 
     if (res.status === 201) {
       e.target.reset()
@@ -36,16 +29,18 @@
     <input type="text" name="name" id="name">
 
     <label for="category">Category</label>
-    <input type="text" name="category" id="category">
+    <select name="category" id="category">
+      <option value=""></option>
+      <option value="A">Category A</option>
+      <option value="B">Category B</option>
+      <option value="C">Category C</option>
+    </select>
 
     <label for="description">Description</label>
     <textarea rows="8" name="description" id="description"></textarea>
 
     <label for="rationale">Rationale</label>
     <textarea rows="8" name="rationale" id="rationale"></textarea>
-
-    <label for="category">Category</label>
-    <input type="text" name="category" id="category">
 
     <button type="submit">
       Submit
@@ -64,16 +59,22 @@
 
 <style scoped>
 
+h2 {
+  margin-bottom: 1em;
+}
+
 form {
   max-width: 24em;
   margin: 20px 0px;
 }
 
-input, textarea {
+input, select, textarea {
   display: block;
   width: 100%;
   margin-bottom: 1em;
-  padding: 0.25em;
+  padding: 0.75em;
+  border: solid 1px black;
+  box-sizing: border-box;
 }
 
 </style>

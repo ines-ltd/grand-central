@@ -1,7 +1,20 @@
 <script setup>
 import { reactive, computed } from 'vue'
 
-const props = defineProps(['data', 'headers'])
+const props = defineProps({
+  data: {
+    type: Object,
+    default: {}
+  },
+  headers: {
+    type: Object,
+    default: {}
+  },
+  filters: {
+    type: Object,
+    default: {}
+  }
+})
 
 function objOnly (obj, arr) {
   if (!arr.length) return obj
@@ -65,29 +78,37 @@ function headerText (key) {
 </script>
 
 <template>
-  <table>
-    <tr>
-      <th
-        v-for="(_val, key) in sortedData[0]"
-        :key="key"
-        v-html="headerText(key)"
-        @click="sortByKey(key)"
-      />
-    </tr>
-    <tr
-      v-for="(item, i) in sortedData"
-      :key="`row-${i}`"
-    >
-      <td
-        v-for="(val, key) in item"
-        :key="`cell-${key}-${i}`"
-        v-html="val"
-      />
-    </tr>
-  </table>
+  <div class="wrapper">
+    <table>
+      <tr>
+        <th
+          v-for="(_val, key) in sortedData[0]"
+          :key="key"
+          v-html="headerText(key)"
+          @click="sortByKey(key)"
+        />
+      </tr>
+      <tr
+        v-for="(item, i) in sortedData"
+        :key="`row-${i}`"
+      >
+        <td
+          v-for="(val, key) in item"
+          :key="`cell-${key}-${i}`"
+          v-html="key in filters ? filters[key](val) : val"
+        />
+      </tr>
+    </table>
+  </div>
 </template>
 
 <style scoped>
+div.wrapper {
+  overflow-x: auto;
+  white-space: nowrap;
+  max-width: 100vw;
+}
+
 table {
   margin: 1em;
   border-collapse: collapse;
