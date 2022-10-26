@@ -2,18 +2,22 @@ const users = [
   {
     ein: '9fa67626-6784-4194-a357-88b0021cec8c',
     firstName: 'Lara',
-    lastName: 'Croft',
-    email: 'lara@hotmail.co.uk'
+    lastName: 'Cruft',
+    email: 'lara@hotmail.co.uk',
+    password: 'password'
   },
   {
+    ein: 'abc123',
     firstName: 'Leonardo',
     lastName: 'da Vinci',
-    email: 'leo_da_v@gmail.it'
+    email: 'leo_da_v@gmail.it',
+    password: 'password'
   },
   {
     firstName: 'George',
     lastName: 'Michael',
-    email: 'george@yahoo.co.uk'
+    email: 'george@yahoo.co.uk',
+    password: 'password'
   }
 ]
 

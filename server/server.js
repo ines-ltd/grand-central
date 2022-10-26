@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const { request } = require('./controllers')
+const { auth, request } = require('./controllers')
 
 const app = express()
 app.use(cors())
@@ -13,6 +13,7 @@ app.get('/ping', (req, res) => {
 })
 
 app.use('/request', request)
+app.use('/auth', auth)
 
 function serve (port) {
   app.listen(port, () => void console.log(`Server listening on port ${port}`))

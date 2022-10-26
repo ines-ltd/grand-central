@@ -1,15 +1,25 @@
 const { User } = require('../models')
+const jwt = require('jsonwebtoken')
 
 async function auth (req, res, next) {
 
-  const ein = req.headers.authorization?.split(' ')[1]
-  if (!ein) return res.status(401).send('invalid auth')
+  try {
 
-  const user = await User.findByPk(ein)
-  if (!user) return res.status(401).send('user not found')
+    const token = req.headers.authorization?.split(' ')[1]
+    if (!token) return res.sendStatus(400)
 
-  req.user = user
-  next()
+    const decoded = jwt.verify(token, process.env.TOKEN_SECRET)
+    if (!decoded) return res.sendStatus(403)
+
+    const user = await User.findByPk(decoded.ein, { attributes: { exclude: ['password'] } })
+    if (!user) return res.sendStatus(404)
+
+    req.user = user
+    next()
+    
+  } catch (err) {
+    return res.status(500).send(err)
+  }
 
 }
 

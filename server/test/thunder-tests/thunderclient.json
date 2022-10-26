@@ -2,13 +2,13 @@
   {
     "_id": "56183b5a-75b2-45d9-98df-18d3835e1feb",
     "colId": "998657bc-1b22-4d58-9fa7-fd4714a780d6",
-    "containerId": "ec8f1b56-8c3d-4104-8db8-0f4f8493fa24",
+    "containerId": "",
     "name": "ping",
     "url": "/ping",
     "method": "GET",
     "sortNum": 10000,
     "created": "2022-10-23T19:24:39.456Z",
-    "modified": "2022-10-23T22:16:10.671Z",
+    "modified": "2022-10-26T19:49:47.454Z",
     "headers": [],
     "params": [],
     "tests": [
@@ -29,9 +29,13 @@
     "method": "GET",
     "sortNum": 30000,
     "created": "2022-10-23T19:26:44.288Z",
-    "modified": "2022-10-24T16:16:44.246Z",
+    "modified": "2022-10-26T21:24:50.311Z",
     "headers": [],
     "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pbW9uQGhvdG1haWwuY28udWsiLCJlaW4iOiJhMWU4MDM5Yi05OTZmLTQ1NWMtOTEyYi03MDBlZWZlODRmMjkiLCJpYXQiOjE2NjY4MTkyNDYsImV4cCI6MTY2NjkwNTY0Nn0.0W2mzeB4-BXQk5yYqe6qVDq7MuEL-G59vpVbUvi7Sjs"
+    },
     "tests": [
       {
         "type": "res-code",
@@ -56,7 +60,7 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2022-10-23T21:17:27.752Z",
-    "modified": "2022-10-24T16:16:13.138Z",
+    "modified": "2022-10-26T21:24:29.054Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -75,7 +79,7 @@
     },
     "auth": {
       "type": "bearer",
-      "bearer": "9fa67626-6784-4194-a357-88b0021cec8c"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pbW9uQGhvdG1haWwuY28udWsiLCJlaW4iOiJhMWU4MDM5Yi05OTZmLTQ1NWMtOTEyYi03MDBlZWZlODRmMjkiLCJpYXQiOjE2NjY4MTkyNDYsImV4cCI6MTY2NjkwNTY0Nn0.0W2mzeB4-BXQk5yYqe6qVDq7MuEL-G59vpVbUvi7Sjs"
     },
     "tests": [
       {
@@ -101,7 +105,7 @@
     "method": "PUT",
     "sortNum": 40000,
     "created": "2022-10-23T21:35:49.753Z",
-    "modified": "2022-10-24T16:17:26.266Z",
+    "modified": "2022-10-26T21:25:12.702Z",
     "headers": [
       {
         "name": "Accept",
@@ -120,7 +124,7 @@
     },
     "auth": {
       "type": "bearer",
-      "bearer": "9fa67626-6784-4194-a357-88b0021cec8c"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pbW9uQGhvdG1haWwuY28udWsiLCJlaW4iOiJhMWU4MDM5Yi05OTZmLTQ1NWMtOTEyYi03MDBlZWZlODRmMjkiLCJpYXQiOjE2NjY4MTkyNDYsImV4cCI6MTY2NjkwNTY0Nn0.0W2mzeB4-BXQk5yYqe6qVDq7MuEL-G59vpVbUvi7Sjs"
     },
     "tests": [
       {
@@ -146,7 +150,7 @@
     "method": "PUT",
     "sortNum": 35000,
     "created": "2022-10-23T21:59:31.587Z",
-    "modified": "2022-10-24T16:17:12.047Z",
+    "modified": "2022-10-26T21:25:16.137Z",
     "headers": [
       {
         "name": "Accept",
@@ -185,12 +189,12 @@
     "method": "DELETE",
     "sortNum": 60000,
     "created": "2022-10-23T22:03:42.008Z",
-    "modified": "2022-10-24T16:17:31.558Z",
+    "modified": "2022-10-26T21:25:20.845Z",
     "headers": [],
     "params": [],
     "auth": {
       "type": "bearer",
-      "bearer": "9fa67626-6784-4194-a357-88b0021cec8c"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pbW9uQGhvdG1haWwuY28udWsiLCJlaW4iOiJhMWU4MDM5Yi05OTZmLTQ1NWMtOTEyYi03MDBlZWZlODRmMjkiLCJpYXQiOjE2NjY4MTkyNDYsImV4cCI6MTY2NjkwNTY0Nn0.0W2mzeB4-BXQk5yYqe6qVDq7MuEL-G59vpVbUvi7Sjs"
     },
     "tests": [
       {
@@ -210,12 +214,12 @@
     "method": "POST",
     "sortNum": 33750,
     "created": "2022-10-24T15:00:52.465Z",
-    "modified": "2022-10-24T16:17:00.568Z",
+    "modified": "2022-10-26T21:25:03.877Z",
     "headers": [],
     "params": [],
     "auth": {
       "type": "bearer",
-      "bearer": "9fa67626-6784-4194-a357-88b0021cec8c"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pbW9uQGhvdG1haWwuY28udWsiLCJlaW4iOiJhMWU4MDM5Yi05OTZmLTQ1NWMtOTEyYi03MDBlZWZlODRmMjkiLCJpYXQiOjE2NjY4MTkyNDYsImV4cCI6MTY2NjkwNTY0Nn0.0W2mzeB4-BXQk5yYqe6qVDq7MuEL-G59vpVbUvi7Sjs"
     },
     "tests": [
       {
@@ -235,12 +239,12 @@
     "method": "DELETE",
     "sortNum": 32500,
     "created": "2022-10-24T15:40:50.347Z",
-    "modified": "2022-10-24T16:16:51.935Z",
+    "modified": "2022-10-26T21:25:00.199Z",
     "headers": [],
     "params": [],
     "auth": {
       "type": "bearer",
-      "bearer": "9fa67626-6784-4194-a357-88b0021cec8c"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pbW9uQGhvdG1haWwuY28udWsiLCJlaW4iOiJhMWU4MDM5Yi05OTZmLTQ1NWMtOTEyYi03MDBlZWZlODRmMjkiLCJpYXQiOjE2NjY4MTkyNDYsImV4cCI6MTY2NjkwNTY0Nn0.0W2mzeB4-BXQk5yYqe6qVDq7MuEL-G59vpVbUvi7Sjs"
     },
     "tests": [
       {
@@ -260,12 +264,12 @@
     "method": "GET",
     "sortNum": 31250,
     "created": "2022-10-24T22:12:39.223Z",
-    "modified": "2022-10-24T22:13:27.667Z",
+    "modified": "2022-10-26T21:24:55.067Z",
     "headers": [],
     "params": [],
     "auth": {
       "type": "bearer",
-      "bearer": "9fa67626-6784-4194-a357-88b0021cec8c"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pbW9uQGhvdG1haWwuY28udWsiLCJlaW4iOiJhMWU4MDM5Yi05OTZmLTQ1NWMtOTEyYi03MDBlZWZlODRmMjkiLCJpYXQiOjE2NjY4MTkyNDYsImV4cCI6MTY2NjkwNTY0Nn0.0W2mzeB4-BXQk5yYqe6qVDq7MuEL-G59vpVbUvi7Sjs"
     },
     "tests": [
       {
@@ -281,5 +285,70 @@
         "value": ""
       }
     ]
+  },
+  {
+    "_id": "7a6bc545-dec8-4b83-9ae6-a4333d8b5666",
+    "colId": "998657bc-1b22-4d58-9fa7-fd4714a780d6",
+    "containerId": "abcb3d46-4f8d-4fef-8dc7-b929a8b6f37c",
+    "name": "signup",
+    "url": "/auth/signup",
+    "method": "POST",
+    "sortNum": 90000,
+    "created": "2022-10-26T19:55:43.792Z",
+    "modified": "2022-10-26T19:58:56.036Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"firstName\": \"Simon\",\n  \"lastName\": \"Haines\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "basic",
+      "basic": {
+        "username": "nimon@hotmail.co.uk",
+        "password": "Jamaica13"
+      }
+    },
+    "tests": []
+  },
+  {
+    "_id": "ac37e1e2-033a-48b9-824e-d9141752edf7",
+    "colId": "998657bc-1b22-4d58-9fa7-fd4714a780d6",
+    "containerId": "abcb3d46-4f8d-4fef-8dc7-b929a8b6f37c",
+    "name": "signin",
+    "url": "/auth/signin",
+    "method": "POST",
+    "sortNum": 100000,
+    "created": "2022-10-26T20:22:16.768Z",
+    "modified": "2022-10-26T20:22:47.827Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "basic",
+      "basic": {
+        "username": "nimon@hotmail.co.uk",
+        "password": "Jamaica13"
+      }
+    },
+    "tests": []
+  },
+  {
+    "_id": "362445da-7fb8-4771-a79e-f78ca9b90f69",
+    "colId": "998657bc-1b22-4d58-9fa7-fd4714a780d6",
+    "containerId": "abcb3d46-4f8d-4fef-8dc7-b929a8b6f37c",
+    "name": "verify",
+    "url": "/auth/verify",
+    "method": "GET",
+    "sortNum": 110000,
+    "created": "2022-10-26T21:21:02.214Z",
+    "modified": "2022-10-26T21:39:20.977Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pbW9uQGhvdG1haWwuY28udWsiLCJlaW4iOiI1MTE4NGVhMi1iNjY5LTQ1ZmEtYjBkZC1hM2M5MTQwYzZlNjkiLCJpYXQiOjE2NjY4MjAzMzYsImV4cCI6MTY2NjkwNjczNn0.kUsgP3BBtJgPlVntFKHauyyd9FI7mfFp5FIJeadWAjs"
+    },
+    "tests": []
   }
 ]

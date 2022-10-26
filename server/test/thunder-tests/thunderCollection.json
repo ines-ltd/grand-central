@@ -18,6 +18,13 @@
             "dataFilePath": ""
           }
         }
+      },
+      {
+        "_id": "abcb3d46-4f8d-4fef-8dc7-b929a8b6f37c",
+        "name": "auth",
+        "containerId": "",
+        "created": "2022-10-26T19:33:28.477Z",
+        "sortNum": 20000
       }
     ],
     "settings": {
