@@ -3,7 +3,8 @@ const db = require('./db')
 const {
   User,
   Request,
-  Project
+  Project,
+  Scrape
 } = require('../models/index')
 
 const data = require('./seed.data')
@@ -16,6 +17,7 @@ async function seed () {
   const users = await Promise.all(data.users.map(u => User.create(u)))
   const requests = await Promise.all(data.requests.map(r => Request.create(r)))
   const projects = await Promise.all(data.projects.map(p => Project.create(p)))
+  const scrape = await Promise.all(data.scrape.map(s => Scrape.create(s)))
 
   // make a user manage another
   await users[0].setManager(users[1])

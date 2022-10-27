@@ -13,6 +13,7 @@ const increment = require('./increment.model')
 const Timebox = require('./timebox.model')
 const Subscription = require('./subscription.model')
 const Action = require('./action.model')
+const Scrape = require('./scrape.model')
 
 User.belongsTo(User, { as: 'manager' })
 
@@ -40,5 +41,6 @@ module.exports = {
   increment,
   Timebox,
   Subscription,
-  Action
+  Action,
+  Scrape
 }
