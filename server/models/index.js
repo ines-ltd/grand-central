@@ -12,6 +12,7 @@ const CommentMap = require('./commentMap.model')
 const increment = require('./increment.model')
 const Timebox = require('./timebox.model')
 const Subscription = require('./subscription.model')
+const Action = require('./action.model')
 
 User.belongsTo(User, { as: 'manager' })
 
@@ -38,5 +39,6 @@ module.exports = {
   CommentMap,
   increment,
   Timebox,
-  Subscription
+  Subscription,
+  Action
 }
