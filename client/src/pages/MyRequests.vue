@@ -72,13 +72,4 @@ onMounted(() => {
   margin-top: 1em;
 }
 
-.card {
-  /* border: solid 0.5px black; */
-  background-color: seashell;
-  width: 200px;
-  padding: 1em;
-  border-radius: 5px;
-  box-shadow: 2px 2px 1px 1px gray;
-}
-
 </style>

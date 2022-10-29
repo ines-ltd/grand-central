@@ -19,6 +19,7 @@ router.post('/signup', async (req, res) => {
 })
 
 router.post('/signin', async (req, res) => {
+
   const { name: email, pass: password } = basic(req)
 
   const user = await User.findOne({  where: { email } })
@@ -27,7 +28,13 @@ router.post('/signin', async (req, res) => {
   const result = await bcrypt.compare(password, user.password)
   if (!result) return res.status(401).send({ msg: 'Incorrect password.' })
 
-  res.status(200).send(createTokens(user))
+  res.status(200).send({
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    ein: user.ein,
+    ...createTokens(user)
+  })
 })
 
 router.get('/verify', auth, (req, res) => {
@@ -38,7 +45,7 @@ function createTokens (user) {
 
   const payload = (({ email, ein }) => ({ email, ein }))(user)
   const token = jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn: '1d' })
-  const refresh = jwt.sign(payload, process.env.REFRESH_SECRET, { expiresIn: '1d' })
+  const refresh = jwt.sign(payload, process.env.REFRESH_SECRET)
 
   return { token, refresh }
 

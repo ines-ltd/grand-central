@@ -1,5 +1,9 @@
 <script setup>
 import { reactive } from 'vue'
+import { useAuth } from './composables/auth'
+import Auth from './pages/Auth.vue'
+
+const { state: authState } = useAuth()
 
 const state = reactive({ showNav: false })
 
@@ -21,6 +25,16 @@ function toggleNav () {
     <RouterLink to="/governance" class="header-item">Governance</RouterLink>
     <RouterLink to="/raptor" class="header-item">Raptor</RouterLink>
     <RouterLink to="/about" class="header-item">About</RouterLink>
+    <RouterLink to="/auth" class="header-item">
+      <span
+        :class="{
+          'material-icons': authState.signedIn,
+          'material-icons-outlined': !authState.signedIn
+        }"
+        v-text="'person'"
+      />
+    </RouterLink>
+
   </header>
 
   <main>
@@ -45,7 +59,8 @@ function toggleNav () {
 
   <article>
     <Suspense>
-      <RouterView />
+      <RouterView v-if="authState.signedIn" />
+      <Auth v-else />
     </Suspense>
   </article>
   
@@ -107,6 +122,7 @@ article {
   margin-right: 1em;
   color: whitesmoke;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .nav-item {
@@ -130,6 +146,11 @@ article {
 }
 
 @media (max-width: 1024px) {
+
+  main {
+    grid-template-columns: 1fr;
+  }
+
   nav {
     position: absolute;
     z-index: 2;

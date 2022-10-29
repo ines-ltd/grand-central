@@ -14,6 +14,7 @@ router.post('/', auth, async (req, res) => {
     await request.addSubscriber(req.user)
     return res.status(201).send(request)
   } catch (error) {
+    console.log(req.body)
     res.status(500).send(error)
   }
 })

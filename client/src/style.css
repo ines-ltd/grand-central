@@ -30,6 +30,20 @@ h2 {
   font-size: x-large;
 }
 
+form {
+  max-width: 24em;
+  margin: 20px 0px;
+}
+
+input, select, textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 1em;
+  padding: 0.75em;
+  border: solid 1px black;
+  box-sizing: border-box;
+}
+
 button {
   color: whitesmoke;
   background-color: var(--primary);
@@ -58,8 +72,8 @@ button.secondary:hover {
   background-color: #33a06f2f;
 }
 
-.material-icons {
-  font-size: inherit;
+.material-icons, .material-icons-outlined {
+  /* font-size: inherit; */
   vertical-align: middle;
 }
 

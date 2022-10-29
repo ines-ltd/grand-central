@@ -2,38 +2,37 @@ export function useApi () {
 
   return {
 
-    options: {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
-      }
-    },
-
     serialize (form) {
       return Array
         .from(new FormData(form))
         .reduce((obj, [key, val]) => ({...obj, [key]: val || null}), {})
     },
 
-    async fetch (endpoint, options = {}) {
+    async fetch (endpoint, data = null, options = {}) {
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
+        }
+      }
+
+      if (data) options.body = JSON.stringify(data)
 
       const res = await fetch(import.meta.env.VITE_API + endpoint, {
-        ...this.options,
+        ...config,
         ...options
       })
 
       if (res.status === 401) {
-        window.alert('Please sign in')
+        return window.alert('Authentication error.')
       }
 
       if (res.status === 403) {
-        window.alert('You do not have permission to perform this action.')
+        return window.alert('Insufficient permissions.')
       }
 
-      const data = await res.json()
-
       return {
-        data,
+        data: await res.json(),
         status: res.status,
         ok: res.ok
       }
@@ -41,25 +40,24 @@ export function useApi () {
     },
 
     async get (endpoint) {
-      return this.fetch(endpoint)
+      return this.fetch(endpoint, null, { method: 'GET' })
     },
 
-    async post (endpoint, data) {
-      return this.fetch(endpoint, {
-        body: JSON.stringify(data),
-        method: 'POST'
-      })
+    async post (endpoint, data, options) {
+      return this.fetch(endpoint, data, { method: 'POST', ...options })
     },
 
-    async put (endpoint, data) {
-      return this.fetch(endpoint, {
-        body: JSON.stringify(data),
-        method: 'PUT'
-      })
+    async put (endpoint, data, options) {
+      return this.fetch(endpoint, data, { method: 'PUT', ...options })
     },
 
     async delete (endpoint) {
-      return this.fetch(endpoint, { method: 'DELETE' })
+      return this.fetch(endpoint, null, { method: 'DELETE' })
+    },
+
+    setTokens (tokens) {
+      localStorage.setItem('token', tokens.token)
+      localStorage.setItem('refresh', tokens.refresh)
     }
 
   }

@@ -4,12 +4,17 @@ import Workflow from '../pages/Workflow.vue'
 import Governance from '../pages/Governance.vue'
 import Raptor from '../pages/Raptor.vue'
 import About from '../pages/About.vue'
+import Auth from '../pages/Auth.vue'
 
-import Requests from '../pages/Requests.vue'
+import MyRequests from '../pages/MyRequests.vue'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
+    {
+      path: '/auth',
+      component: Auth
+    },
     {
       path: '/',
       component: Home
@@ -32,7 +37,7 @@ const router = createRouter({
     },
     {
       path: '/requests',
-      component: Requests
+      component: MyRequests
     }
   ]
 })

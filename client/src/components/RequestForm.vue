@@ -63,18 +63,4 @@ h2 {
   margin-bottom: 1em;
 }
 
-form {
-  max-width: 24em;
-  margin: 20px 0px;
-}
-
-input, select, textarea {
-  display: block;
-  width: 100%;
-  margin-bottom: 1em;
-  padding: 0.75em;
-  border: solid 1px black;
-  box-sizing: border-box;
-}
-
 </style>
