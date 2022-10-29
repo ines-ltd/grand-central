@@ -6,12 +6,14 @@ describe('Users', () => {
     {
       firstName: 'Joshua',
       lastName: 'Haines',
-      email: 'jh@ines.dev'
+      email: 'jh@ines.dev',
+      password: 'spam'
     },
     {
       firstName: 'Darth',
       lastName: 'Vader',
-      email: 'darth@empire.org'
+      email: 'darth@empire.org',
+      password: 'eggs'
     }
   ]
 
