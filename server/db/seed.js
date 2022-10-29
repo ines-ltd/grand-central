@@ -23,7 +23,7 @@ async function seed () {
   await users[0].setManager(users[1])
   
   // let a user own a request
-  await requests[0].setOwner(users[1])
+  await requests[0].setOwner(users[0])
   // and let one all subscribe to the request
   await requests[0].addSubscriber(users[2])
 

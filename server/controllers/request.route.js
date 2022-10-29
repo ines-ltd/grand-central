@@ -10,7 +10,7 @@ router.post('/', auth, async (req, res) => {
   try {
     const request = await Request.create(req.body)
     await request.setOwner(req.user)
-    await req.user.addRequest(request)
+    // await req.user.addRequest(request)
     await request.addSubscriber(req.user)
     return res.status(201).send(request)
   } catch (error) {

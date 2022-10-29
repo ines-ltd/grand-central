@@ -6,9 +6,6 @@ const Comment = require('./comment.model')
 const Project = require('./project.model')
 const People = require('./people.model')
 const Task = require('./task.model')
-const ProjectMap = require('./projectMap.model')
-const TaskMap = require('./taskMap.model')
-const CommentMap = require('./commentMap.model')
 const increment = require('./increment.model')
 const Timebox = require('./timebox.model')
 const Subscription = require('./subscription.model')
@@ -17,7 +14,7 @@ const Scrape = require('./scrape.model')
 
 User.belongsTo(User, { as: 'manager' })
 
-User.hasMany(Request)
+User.hasMany(Request, { foreignKey: 'ownerEin' })
 Request.belongsTo(User, { as: 'owner' })
 
 User.belongsToMany(Request, { as: 'subscription', through: 'Subscriptions' })
@@ -35,9 +32,6 @@ module.exports = {
   Project,
   People,
   Task,
-  ProjectMap,
-  TaskMap,
-  CommentMap,
   increment,
   Timebox,
   Subscription,
