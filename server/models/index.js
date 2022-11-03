@@ -6,7 +6,7 @@ const Comment = require('./comment.model')
 const Project = require('./project.model')
 const People = require('./people.model')
 const Task = require('./task.model')
-const increment = require('./increment.model')
+const Increment = require('./increment.model')
 const Timebox = require('./timebox.model')
 const Subscription = require('./subscription.model')
 const Action = require('./action.model')
@@ -23,6 +23,12 @@ Request.belongsToMany(User, { as: 'subscriber', through: 'Subscriptions' })
 Request.belongsToMany(Project, { through: 'Project_Request' })
 Project.belongsToMany(Request, { through: 'Project_Request' })
 
+Request.hasMany(Comment)
+Project.hasMany(Comment)
+Task.hasMany(Comment)
+Increment.hasMany(Comment)
+Timebox.hasMany(Comment)
+
 module.exports = {
   Event,
   Update,
@@ -32,7 +38,7 @@ module.exports = {
   Project,
   People,
   Task,
-  increment,
+  Increment,
   Timebox,
   Subscription,
   Action,

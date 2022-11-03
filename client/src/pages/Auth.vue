@@ -30,21 +30,23 @@ async function submit (e) {
 
       <button class="sign-in-btn" type="submit">Submit</button>
 
+      
     </form>
-
+    
     <template v-else>
       <h1>Hey, {{ user.firstName }}!</h1>
       <button class="dashboard-btn">
         Go to dashboard
       </button>
       <button
-        v-text="'Sign out'"
-        type="button"
-        class="secondary"
-        @click="signOut"
+      v-text="'Sign out'"
+      type="button"
+      class="secondary"
+      @click="signOut"
       />
+      <pre>{{ user }}</pre>
     </template>
-
+    
   </div>
 </template>
 

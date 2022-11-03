@@ -10,6 +10,11 @@ User.init({
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true
   },
+  role: {
+    type: DataTypes.STRING,
+    defaultValue: 'customer',
+    allowNull: false
+  },
   firstName: {
     type: DataTypes.STRING,
     allowNull: false

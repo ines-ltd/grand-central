@@ -5,19 +5,28 @@ import Governance from '../pages/Governance.vue'
 import Raptor from '../pages/Raptor.vue'
 import About from '../pages/About.vue'
 import Auth from '../pages/Auth.vue'
+import Requests from '../pages/Requests.vue'
 
-import MyRequests from '../pages/MyRequests.vue'
+import { useAuth } from '../composables/auth'
+const { user, state: authState } = useAuth()
+console.log(user.role, 'router')
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
       path: '/auth',
-      component: Auth
+      component: Auth,
+      meta: {
+        public: true
+      }
     },
     {
       path: '/',
-      component: Home
+      component: Home,
+      meta: {
+        public: true
+      }
     },
     {
       path: '/workflow',
@@ -37,9 +46,14 @@ const router = createRouter({
     },
     {
       path: '/requests',
-      component: MyRequests
+      component: Requests
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  if (!authState.signedIn && !to.meta.public) return next('/auth')
+  return next()
 })
 
 export default router

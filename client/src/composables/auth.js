@@ -10,6 +10,7 @@ const state = reactive({
 
 const nullUser = {
   ein: null,
+  role: null,
   email: null,
   firstName: null,
   lastName: null
@@ -36,7 +37,7 @@ async function signIn (email, password) {
 
   api.setTokens(res.data)
 
-  const userData = pick(res.data, 'ein', 'email', 'firstName', 'lastName')
+  const userData = pick(res.data, 'ein', 'role', 'email', 'firstName', 'lastName')
   localStorage.setItem('user', JSON.stringify(userData))
   Object.assign(user, userData)
 

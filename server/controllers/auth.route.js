@@ -33,6 +33,7 @@ router.post('/signin', async (req, res) => {
     lastName: user.lastName,
     email: user.email,
     ein: user.ein,
+    role: user.role,
     ...createTokens(user)
   })
 })

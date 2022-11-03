@@ -4,20 +4,23 @@ const users = [
     firstName: 'Lara',
     lastName: 'Cruft',
     email: 'lara@hotmail.co.uk',
-    password: 'password'
+    password: 'password',
+    role: 'customer'
   },
   {
     ein: 'abc123',
     firstName: 'Leonardo',
     lastName: 'da Vinci',
     email: 'leo_da_v@gmail.it',
-    password: 'password'
+    password: 'password',
+    role: 'dev'
   },
   {
     firstName: 'George',
     lastName: 'Michael',
     email: 'george@yahoo.co.uk',
-    password: 'password'
+    password: 'password',
+    role: 'manager'
   }
 ]
 
