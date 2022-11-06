@@ -4,21 +4,13 @@ const db = require('../db/db')
 class Comment extends Model { }
 
 Comment.init({
-  commentId: {
+  id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true
   },
-  comment: {
+  content: {
     type: DataTypes.STRING,
-    allowNull: false
-  },
-  commentDt: {
-    type: DataTypes.DATE,
-    allowNull: false
-  },
-  commentEin: {
-    type: DataTypes.NUMBER,
     allowNull: false
   }
 

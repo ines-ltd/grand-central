@@ -7,6 +7,8 @@ const {
   Scrape
 } = require('../models/index')
 
+const { choose } = require('../utils')
+
 const data = require('./seed.data')
 
 async function seed () {
@@ -14,25 +16,41 @@ async function seed () {
   await db.sync({ force: true })
 
   // create the data
-  const users = await Promise.all(data.users.map(u => User.create(u)))
-  const requests = await Promise.all(data.requests.map(r => Request.create(r)))
-  const projects = await Promise.all(data.projects.map(p => Project.create(p)))
-  const scrape = await Promise.all(data.scrape.map(s => Scrape.create(s)))
+  const users = await User.bulkCreate(data.users)
+  const requests = await Request.bulkCreate(data.requests)
+  const projects = await Project.bulkCreate(data.projects)
+  const scrape = await Scrape.bulkCreate(data.scrape)
 
-  // make a user manage another
-  await users[0].setManager(users[1])
+  // get the users by type
+  const customers = users.filter(u => u.role === 'customer')
+  const devs = users.filter(u => u.role === 'dev')
+  const managers = users.filter(u => u.role === 'manager')
+  const admins = users.filter(u => u.role === 'admin')
+
+  // set some managers
+  for (let user of [...customers, ...devs]) {
+    await user.setManager(choose(managers))
+  }
   
-  // let a user own a request
-  await requests[0].setOwner(users[0])
-  // and let one all subscribe to the request
-  await requests[0].addSubscriber(users[2])
+  // set owners of requests
+  for (let request of requests) {
+    const owner = choose(customers)
+    await request.setOwner(owner)
+    await request.addSubscriber(owner)
+  }
 
-  // attach a project to a request
-  await requests[0].addProject(projects[0])
+  // add some subscribers
+  for (let request of requests) {
+    await request.addSubscribers(choose(customers, Math.floor(Math.random() * 10)))
+  }
+
+  // attach requests to projects
+  for (let request of requests) {
+    await request.addProject(choose(projects))
+  }
 
 }
 
-seed()
+if (process.argv.includes('seed')) seed()
 
 module.exports = seed
-

@@ -1,56 +1,55 @@
-const users = [
-  {
-    ein: '9fa67626-6784-4194-a357-88b0021cec8c',
-    firstName: 'Lara',
-    lastName: 'Cruft',
-    email: 'lara@hotmail.co.uk',
-    password: 'password',
-    role: 'customer'
-  },
-  {
-    ein: 'abc123',
-    firstName: 'Leonardo',
-    lastName: 'da Vinci',
-    email: 'leo_da_v@gmail.it',
-    password: 'password',
-    role: 'dev'
-  },
-  {
-    firstName: 'George',
-    lastName: 'Michael',
-    email: 'george@yahoo.co.uk',
-    password: 'password',
-    role: 'manager'
-  }
-]
+const { faker } = require('@faker-js/faker')
 
-const requests = [
-  {
-    id: 1,
-    name: 'Cat report',
-    description: 'Some info on all the cats',
-    category: 'defcon 6',
-    rationale: 'I think they are cute',
-    audience: 'me, durrr',
-    urgency: 'VERY',
-    status: 'snafu'
+function randomUser () {
+  const firstName = faker.name.firstName()
+  const lastName = faker.name.lastName()
+  return {
+    firstName,
+    lastName,
+    role: faker.helpers.arrayElement(['customer', 'customer', 'dev', 'manager', 'admin']),
+    email: faker.internet.email(firstName, lastName, 'openreach.com'),
+    password: 'password'
   }
-]
+}
 
-projects = [
-  {
-    name: 'Cat project',
-    quickWin: false,
-    projectName: 'Spectre',
-    priorityScore: 7,
-    platform: 'Sky',
+function randomRequest () {
+  return {
+    name: `${faker.company.bsBuzz()} ${faker.company.bsNoun()}`,
+    description: faker.lorem.paragraph(),
+    category: faker.word.noun(),
+    rationale: faker.lorem.paragraph(),
+    audience: faker.company.name(),
+    urgency: faker.datatype.number(1,5),
+    status: faker.helpers.arrayElement(['Pending', 'Reviewing', 'Approved', 'Assigned', 'Complete'])
   }
-]
+}
+
+function randomProject () {
+  return {
+    holdReason: `${faker.hacker.ingverb} the ${faker.hacker.noun}`,
+    status: faker.helpers.arrayElement(['On hold', 'Working']),
+    quickWin: faker.datatype.boolean(),
+    projectName: `${faker.company.bsBuzz()} ${faker.company.bsNoun()}`,
+    priorityScore: faker.datatype.number(1, 5),
+    platform: faker.word.noun(),
+    ecd: faker.datatype.datetime(Date.now())
+  }
+}
+
+function randomComment () {
+  return {
+    content: faker.hacker.phrase()
+  }
+}
+
+function createArrayOf (count, func) {
+  return new Array(count).fill(null).map(_ => func())
+}
 
 scrape = [
   {
     ein: '123456789',
-    forename: 'Borris',
+    forename: 'Boris',
     surname: 'Johnson',
     emailAddress: 'iAmCorrupt@gov.co.uk',
     ouc: 'BN3',
@@ -117,8 +116,9 @@ scrape = [
 
 
 module.exports = {
-  users,
-  requests,
-  projects,
+  users: createArrayOf(30, randomUser),
+  requests: createArrayOf(50, randomRequest),
+  projects: createArrayOf(10, randomProject),
+  comments: createArrayOf(100, randomComment),
   scrape
 }

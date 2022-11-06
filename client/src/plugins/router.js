@@ -30,7 +30,11 @@ const router = createRouter({
     },
     {
       path: '/workflow',
-      component: Workflow
+      component: Workflow,
+      meta: {
+        protected: true,
+        roles: ['manager', 'admin']
+      }
     },
     {
       path: '/governance',
@@ -53,6 +57,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (!authState.signedIn && !to.meta.public) return next('/auth')
+  if (to.meta.protected && !to.meta.roles.includes(user.role)) return next('/')
   return next()
 })
 

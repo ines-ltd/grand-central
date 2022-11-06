@@ -3,7 +3,7 @@ import { reactive } from 'vue'
 import { useAuth } from './composables/auth'
 import Auth from './pages/Auth.vue'
 
-const { state: authState } = useAuth()
+const { user, state: authState } = useAuth()
 
 const state = reactive({ showNav: false })
 
@@ -41,11 +41,9 @@ function toggleNav () {
 
   <nav id="left-nav" :class="{ 'hide': !state.showNav }">
     <RouterLink to="/requests" class="nav-item">Requests</RouterLink>
-    <RouterLink to="/" class="nav-item">My Tasks</RouterLink>
-    <RouterLink to="/" class="nav-item">My Projects</RouterLink>
-    <RouterLink to="/" class="nav-item">My Team Tasks</RouterLink>
-    <RouterLink to="/" class="nav-item">All Projects</RouterLink>
-    <RouterLink to="/" class="nav-item">Subscriptions</RouterLink>
+    <RouterLink v-if="user.role == 'customer'" to="/" class="nav-item">Subscriptions</RouterLink>
+    <RouterLink to="/" class="nav-item">Projects</RouterLink>
+    <RouterLink to="/" class="nav-item">Tasks</RouterLink>
     <RouterLink to="/" class="nav-item">Analytics</RouterLink>
     <RouterLink to="/" class="nav-item">Admin</RouterLink>
 

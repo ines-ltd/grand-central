@@ -49,7 +49,7 @@ Project.init({
   userStorySkip: {
     type: DataTypes.BOOLEAN
   },
-  projectEcd: {
+  ecd: {
     type: DataTypes.DATE
   },
   milestone: {
