@@ -8,7 +8,7 @@ import Auth from '../pages/Auth.vue'
 import Requests from '../pages/Requests.vue'
 
 import { useAuth } from '../composables/auth'
-const { user, state: authState } = useAuth()
+const { user, authState } = useAuth()
 console.log(user.role, 'router')
 
 const router = createRouter({

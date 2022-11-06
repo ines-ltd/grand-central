@@ -10,7 +10,7 @@ const props = defineProps({
     type: Object,
     default: {}
   },
-  filters: {
+  maps: {
     type: Object,
     default: {}
   }
@@ -95,7 +95,7 @@ function headerText (key) {
         <td
           v-for="(val, key) in item"
           :key="`cell-${key}-${i}`"
-          v-html="key in filters ? filters[key](val) : val"
+          v-html="key in maps ? maps[key](val) : val"
         />
       </tr>
     </table>
@@ -113,6 +113,7 @@ table {
   margin: 1em;
   border-collapse: collapse;
   border: 2px solid rgb(200,200,200);
+  font-size: smaller;
 }
 
 td, th {

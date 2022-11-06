@@ -1,15 +1,13 @@
 <script setup>
 import { reactive } from 'vue'
 import { useAuth } from './composables/auth'
+import { useNav } from './composables/nav'
 import Auth from './pages/Auth.vue'
+import LeftNav from './components/LeftNav.vue'
 
-const { user, state: authState } = useAuth()
+const { user, authState } = useAuth()
+const { toggleNav } = useNav()
 
-const state = reactive({ showNav: false })
-
-function toggleNav () {
-  state.showNav = !state.showNav
-}
 </script>
 
 <template>
@@ -39,21 +37,7 @@ function toggleNav () {
 
   <main>
 
-  <nav id="left-nav" :class="{ 'hide': !state.showNav }">
-    <RouterLink to="/requests" class="nav-item">Requests</RouterLink>
-    <RouterLink v-if="user.role == 'customer'" to="/" class="nav-item">Subscriptions</RouterLink>
-    <RouterLink to="/" class="nav-item">Projects</RouterLink>
-    <RouterLink to="/" class="nav-item">Tasks</RouterLink>
-    <RouterLink to="/" class="nav-item">Analytics</RouterLink>
-    <RouterLink to="/" class="nav-item">Admin</RouterLink>
-
-    <div
-      v-if="state.showNav == true"
-      class="scrim"
-      @click="state.showNav = false"
-    />
-
-  </nav>
+    <LeftNav />
 
   <article>
     <Suspense>
@@ -79,14 +63,6 @@ main {
   display: grid;
   grid-template-columns: auto 1fr;
   height: calc(100vh - var(--header-height));
-}
-
-nav {
-  width: var(--nav-width);
-  height: calc(100vh - var(--header-height));
-  background-color: var(--primary);
-  color: whitesmoke;
-  transition: margin-left 0.3s;
 }
 
 article {
@@ -122,49 +98,12 @@ article {
   cursor: pointer;
 }
 
-.nav-item {
-  display: block;
-  color: whitesmoke;
-  text-decoration: none;
-  padding: 1em;
-  cursor: pointer;
-}
-
-.nav-item:hover {
-  background-color: var(--primary-dark);
-}
-
-.hide {
-  margin-left: calc(0px - var(--nav-width));
-}
-
-.scrim {
-  visibility: hidden;
-}
-
 @media (max-width: 1024px) {
 
   main {
     grid-template-columns: 1fr;
   }
 
-  nav {
-    position: absolute;
-    z-index: 2;
-  }
-
-  .scrim {
-    position: absolute;
-    left: var(--nav-width);
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: black;
-    opacity: 0.8;
-    z-index: 1;
-    cursor: pointer;
-    visibility: visible;
-  }
 }
 
 </style>

@@ -1,6 +1,6 @@
 import { reactive } from 'vue'
 import { useApi } from './api'
-import pick from '../utils/pick'
+import { pick } from '../utils'
 const api = useApi()
 
 const state = reactive({
@@ -16,7 +16,26 @@ const nullUser = {
   lastName: null
 }
 
-const user = reactive({ ...nullUser })
+const user = reactive({
+  ...nullUser,
+
+  get isCustomer () {
+    return this.role === 'customer'
+  },
+
+  get isDev () {
+    return this.role === 'dev'
+  },
+
+  get isManager () {
+    return this.role === 'manager'
+  },
+
+  get isAdmin () {
+    return this.role === 'admin'
+  }
+
+})
 
 if (!state.signedIn && localStorage.hasOwnProperty('user')) {
   Object.assign(user, JSON.parse(localStorage.getItem('user')))
@@ -59,7 +78,7 @@ function signOut () {
 export function useAuth () {
 
   return {
-    state,
+    authState: state,
     user,
     signIn,
     signOut

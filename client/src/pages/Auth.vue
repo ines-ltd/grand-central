@@ -1,7 +1,7 @@
 <script setup>
 
 import { useAuth } from '../composables/auth'
-const { user, signIn, signOut, state } = useAuth()
+const { user, authState, signIn, signOut } = useAuth()
 
 async function submit (e) {
 
@@ -16,7 +16,7 @@ async function submit (e) {
 <template>
   <div class="wrapper">
     <form
-      v-if="!state.signedIn"
+      v-if="!authState.signedIn"
       @submit.prevent="submit"
     >
 

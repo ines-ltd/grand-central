@@ -37,7 +37,7 @@ router.get('/:id', async (req, res) => {
  */
 router.get('/', auth, async (req, res) => {
   try {
-    const requests = await req.user.getRequests()
+    const requests = await (req.user.role === 'customer' ? req.user.getRequests() : Request.findAll())
     return res.status(200).send(requests)
   } catch (error) {
     console.error(error)
