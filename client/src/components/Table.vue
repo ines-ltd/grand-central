@@ -1,10 +1,11 @@
 <script setup>
-import { reactive, computed } from 'vue'
+import { reactive, computed, ref, watch, defineEmits } from 'vue'
+import { pick } from '../utils'
 
 const props = defineProps({
   data: {
-    type: Object,
-    default: {}
+    type: Array,
+    default: []
   },
   headers: {
     type: Object,
@@ -16,16 +17,45 @@ const props = defineProps({
   }
 })
 
-function objOnly (obj, arr) {
-  if (!arr.length) return obj
-  const result = {}
-  for (let key of arr) {
-    result[key] = obj[key]
-  }
-  return result
-}
+const emit = defineEmits(['checked'])
 
-const data = props.data.map(row => objOnly(row, Object.keys(props.headers)))
+// Selected Rows
+const checkedRows = ref([])
+const selectAll = ref(false)
+
+watch ([checkedRows, selectAll], ([checked, select], [oldChecked, oldSelect]) => {
+
+  // not all rows are checked and selectAll becomes true
+  if (checked.length < data.length && !oldSelect && select) {
+    checkedRows.value = sortedData.value
+    return
+  }
+
+  // all rows are selected and selectAll becomes false
+  if (checked.length === data.length && oldSelect && !select) {
+    checkedRows.value = []
+    return
+  }
+
+  // everything is selected and selectAll is true but a row becomes unselected
+  if (oldChecked.length === data.length && checked.length < data.length && select) {
+    selectAll.value = false
+  }
+
+  // everything becomes selected but selectAll is false
+  if (oldChecked.length < data.length && checked.length === data.length && !select) {
+    selectAll.value = true
+  }
+
+  // if checked rows changes, emit the event
+  if (oldChecked.length !== checked.length) {
+    emit('checked', checked)
+  }
+
+})
+
+// Wrangling data
+const data = [...props.data]
 
 const sort = reactive({
   key: null,
@@ -37,11 +67,13 @@ const sortedData = computed(() => {
   if (sort.asc === 0) return data
 
   return [...data].sort((a, b) => {
-    [a, b] = [a, b].map(c => c[sort.key].toUpperCase())
+    [a, b] = [a, b].map(c => (c[sort.key] || '').toUpperCase())
     return a > b ? sort.asc : a < b ? -sort.asc : 0
   })
 
 })
+
+const displayData = computed(() => sortedData.value.map(row => pick(row, ...Object.keys(props.headers))))
 
 function sortByKey (key) {
 
@@ -54,6 +86,7 @@ function sortByKey (key) {
 
 }
 
+// Making header text
 function headerText (key) {
 
   const titleCase = props.headers[key] || key
@@ -81,21 +114,38 @@ function headerText (key) {
   <div class="wrapper">
     <table>
       <tr>
+        <th>
+          <input
+            type="checkbox"
+            name="select-all"
+            id="select-all"
+            v-model="selectAll"
+          >
+        </th>
         <th
-          v-for="(_val, key) in sortedData[0]"
+          v-for="(_val, key) in displayData[0]"
           :key="key"
           v-html="headerText(key)"
           @click="sortByKey(key)"
         />
       </tr>
       <tr
-        v-for="(item, i) in sortedData"
+        v-for="(item, i) in displayData"
         :key="`row-${i}`"
       >
+        <td>
+          <input
+            v-model="checkedRows"
+            type="checkbox"
+            name="row-select"
+            :id="`checkbox-${i}`"
+            :value="sortedData[i]"
+          >
+        </td>
         <td
           v-for="(val, key) in item"
           :key="`cell-${key}-${i}`"
-          v-html="key in maps ? maps[key](val) : val"
+          v-text="key in maps ? maps[key](val, item) : val"
         />
       </tr>
     </table>
@@ -118,7 +168,7 @@ table {
 
 td, th {
   border: 1px solid rgb(190,190,190);
-  padding: 10px 20px;
+  padding: 10px 10px;
 }
 
 th {
@@ -140,6 +190,11 @@ tr:nth-child(odd) td {
 
 caption {
   padding: 10px;
+}
+
+input[type=checkbox] {
+  margin: 0;
+  padding: 0;
 }
 
 </style>

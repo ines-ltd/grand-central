@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { Request, User } = require('../models')
 const { auth } = require('../middleware')
+const { Op } = require('sequelize')
 
 /**
  * Create
@@ -65,7 +66,7 @@ router.put('/:id', auth, async (req, res) => {
 /**
  * Delete
  */
- router.delete('/:id', auth, async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
   try {
     const request = await Request.findByPk(req.params.id, { include: 'owner' })
     if (!request) return res.sendStatus(404)
@@ -74,6 +75,27 @@ router.put('/:id', auth, async (req, res) => {
     await request.destroy()
     return res.status(204).send(request)
   } catch (error) {
+    res.status(500).send(error)
+  }
+})
+
+/**
+ * Bulk delete
+ */
+router.post('/delete', auth, async (req, res) => {
+  try {
+    if (!(['manager', 'admin'].includes(req.user.role))) return res.sendStatus(403)
+    if (!req.body.requests) return res.sendStatus(400)
+    await Request.destroy({
+      where: {
+        id: {
+          [Op.in]: req.body.requests.map(r => r.id)
+        }
+      }
+    })
+    res.sendStatus(204)
+  } catch (error) {
+    console.log(error)
     res.status(500).send(error)
   }
 })

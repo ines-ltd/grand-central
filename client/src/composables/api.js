@@ -31,28 +31,37 @@ export function useApi () {
         return window.alert('Insufficient permissions.')
       }
 
-      return {
-        data: await res.json(),
-        status: res.status,
-        ok: res.ok
+      try {
+        return {
+          data: await res.json(),
+          status: res.status,
+          ok: res.ok
+        }
+      } catch (error) {
+        console.error(error)
+        return {
+          data: null,
+          status: res.status,
+          ok: res.ok
+        }
       }
 
     },
 
-    async get (endpoint) {
-      return this.fetch(endpoint, null, { method: 'GET' })
+    async get (endpoint, options = {}) {
+      return this.fetch(endpoint, null, { method: 'GET', ...options })
     },
 
-    async post (endpoint, data, options) {
+    async post (endpoint, data, options = {}) {
       return this.fetch(endpoint, data, { method: 'POST', ...options })
     },
 
-    async put (endpoint, data, options) {
+    async put (endpoint, data, options = {}) {
       return this.fetch(endpoint, data, { method: 'PUT', ...options })
     },
 
-    async delete (endpoint) {
-      return this.fetch(endpoint, null, { method: 'DELETE' })
+    async delete (endpoint, options = {}) {
+      return this.fetch(endpoint, null, { method: 'DELETE', ...options })
     },
 
     setTokens (tokens) {

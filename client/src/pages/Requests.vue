@@ -1,21 +1,21 @@
 <script setup>
-import { onMounted, reactive, ref } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
 import { format } from 'date-fns'
-import RequestForm from '../components/RequestForm.vue'
-import Table from '../components/Table.vue'
 import { useApi } from '../composables/api'
 import { useAuth } from '../composables/auth'
 import { truncate } from '../utils'
+import RequestForm from '../components/RequestForm.vue'
+import Table from '../components/Table.vue'
 
 const api = useApi()
 const { user } = useAuth()
 
+// form state
 const form = reactive({
   show: false
 })
 
-const requests = ref([])
-
+// headers
 const headers = {
   createdAt: 'Created',
   name: 'Name',
@@ -34,14 +34,31 @@ const maps = {
   rationale: r => truncate(r)
 }
 
-async function fetchRequests () {
-  const res = await api.get('/request')
-  requests.value = res.data
-}
+// selected rows
+const selectedRows = ref([])
 
 onMounted(() => {
   fetchRequests()
 })
+
+// requests
+const requests = ref([])
+
+async function fetchRequests () {
+  const res = await api.get('/request')
+  requests.value = res.data || []
+}
+
+async function deleteRequests () {
+  const s = selectedRows.value.length > 1 ? 's' : ''
+  const confMsg = `Are sure sure you want to delete ${selectedRows.value.length} request${s}`
+  if (!window.confirm(confMsg)) return
+  const res = await api.post('/request/delete', { requests: selectedRows.value })
+  if (res.ok) {
+    requests.value = requests.value.filter(r => !selectedRows.value.includes(r))
+    selectedRows.value = []
+  }
+}
 
 </script>
 
@@ -49,7 +66,26 @@ onMounted(() => {
 
   <div class="title">
     <h1>{{user.isCustomer ? 'My' : ''}} Requests</h1>
-    <button @click="form.show = true">New</button>
+    <button
+      v-if="user.isCustomer"
+      v-text="'New'"
+      @click="form.show = true"
+    />
+    <template v-if="(user.isManager || user.isAdmin) && selectedRows.length > 0">
+      <button
+        class="primary"
+        v-text="'Assign'"
+      />
+      <button
+        class="secondary"
+        v-text="'Edit'"
+      />
+      <button
+        class="warning"
+        v-text="'Delete'"
+        @click="deleteRequests"
+      />
+    </template>
   </div>
 
   <Transition name="fade" mode="out-in">
@@ -64,6 +100,7 @@ onMounted(() => {
       :data="requests"
       :headers="headers"
       :maps="maps"
+      @checked="(checked) => selectedRows = [...checked]"
     />
   </Transition>
 

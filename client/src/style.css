@@ -4,6 +4,7 @@
   --primary-dark: #33a06f;
   --primary-light: #42d392;
   --secondary: #003366;
+  --warning: #cc3300;
   --header-height: 50px;
   --nav-width: 200px;
 }
@@ -44,6 +45,10 @@ input, select, textarea {
   box-sizing: border-box;
 }
 
+input[type=checkbox] {
+  accent-color: var(--secondary);
+}
+
 button {
   color: whitesmoke;
   background-color: var(--primary);
@@ -64,16 +69,21 @@ button.secondary {
   font-weight: bold;
 }
 
+button.warning {
+  background-color: var(--warning);
+}
+
 button:hover {
-  background-color: var(--primary-dark);
+  filter: brightness(90%);
 }
 
 button.secondary:hover {
   background-color: #33a06f2f;
+  filter: none;
 }
 
 .material-icons, .material-icons-outlined {
-  /* font-size: inherit; */
+  font-size: inherit;
   vertical-align: middle;
 }
 
