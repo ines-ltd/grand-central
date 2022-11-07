@@ -6,6 +6,7 @@ function randomUser () {
   return {
     firstName,
     lastName,
+    imgUrl: faker.image.avatar(),
     role: faker.helpers.arrayElement(['customer', 'customer', 'dev', 'manager', 'admin']),
     email: faker.internet.email(firstName, lastName, 'openreach.com'),
     password: 'password'

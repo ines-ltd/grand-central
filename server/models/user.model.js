@@ -23,6 +23,9 @@ User.init({
     type: DataTypes.STRING,
     allowNull: false
   },
+  imgUrl: {
+    type: DataTypes.STRING
+  },
   email: {
     type: DataTypes.STRING,
     allowNull: false,
