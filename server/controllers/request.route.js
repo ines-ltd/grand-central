@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { Request, User } = require('../models')
+const { Request, User, Project } = require('../models')
 const { auth } = require('../middleware')
 const { Op } = require('sequelize')
 
@@ -88,9 +88,7 @@ router.post('/delete', auth, async (req, res) => {
     if (!req.body.requests) return res.sendStatus(400)
     await Request.destroy({
       where: {
-        id: {
-          [Op.in]: req.body.requests.map(r => r.id)
-        }
+        id: { [Op.in]: req.body.requests.map(r => r.id) }
       }
     })
     res.sendStatus(204)
@@ -98,6 +96,23 @@ router.post('/delete', auth, async (req, res) => {
     console.log(error)
     res.status(500).send(error)
   }
+})
+
+/**
+ * Assign
+ */
+router.post('/assign', auth, async (req, res) => {
+  if (!req.user.role === 'manager' && !req.user.role === 'admin') res.sendStatus(403)
+
+  const project = await Project.create({ name: 'Created a project', priorityScore: 3, quickWin: true })
+  const requests = await Request.findAll({ where: { id: { [Op.in]: req.body.requests } } })
+  const devs = await User.findAll({ where: { ein: { [Op.in]: req.body.devs  } } })
+  
+  await project.addRequests(requests)
+  await project.addDevelopers(devs)
+  await Request.update({ status: 'Assigned' }, { where: { id: { [Op.in]: req.body.requests } } })
+
+  res.sendStatus(200)
 })
 
 /**

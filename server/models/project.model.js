@@ -19,7 +19,7 @@ Project.init({
     type: DataTypes.STRING,
     allowNull: false
   },
-  projectName: {
+  name: {
     type: DataTypes.STRING,
     allowNull: false
   },
@@ -28,8 +28,7 @@ Project.init({
     allowNull: false
   },
   platform: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: DataTypes.STRING
   },
   wireframe: {
     type: DataTypes.STRING

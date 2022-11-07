@@ -25,25 +25,26 @@ const selectAll = ref(false)
 
 watch ([checkedRows, selectAll], ([checked, select], [oldChecked, oldSelect]) => {
 
+  const l = data.value.length
   // not all rows are checked and selectAll becomes true
-  if (checked.length < data.length && !oldSelect && select) {
+  if (checked.length < l && !oldSelect && select) {
     checkedRows.value = sortedData.value
     return
   }
 
   // all rows are selected and selectAll becomes false
-  if (checked.length === data.length && oldSelect && !select) {
+  if (checked.length === l && oldSelect && !select) {
     checkedRows.value = []
     return
   }
 
   // everything is selected and selectAll is true but a row becomes unselected
-  if (oldChecked.length === data.length && checked.length < data.length && select) {
+  if (oldChecked.length === l && checked.length < l && select) {
     selectAll.value = false
   }
 
   // everything becomes selected but selectAll is false
-  if (oldChecked.length < data.length && checked.length === data.length && !select) {
+  if (oldChecked.length < l && checked.length === l && !select) {
     selectAll.value = true
   }
 
@@ -55,7 +56,7 @@ watch ([checkedRows, selectAll], ([checked, select], [oldChecked, oldSelect]) =>
 })
 
 // Wrangling data
-const data = [...props.data]
+const data = computed(() => [...props.data])
 
 const sort = reactive({
   key: null,
@@ -64,9 +65,9 @@ const sort = reactive({
 
 const sortedData = computed(() => {
 
-  if (sort.asc === 0) return data
+  if (sort.asc === 0) return data.value
 
-  return [...data].sort((a, b) => {
+  return [...data.value].sort((a, b) => {
     [a, b] = [a, b].map(c => (c[sort.key] || '').toUpperCase())
     return a > b ? sort.asc : a < b ? -sort.asc : 0
   })

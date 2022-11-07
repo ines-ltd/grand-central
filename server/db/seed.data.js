@@ -30,7 +30,7 @@ function randomProject () {
     holdReason: `${faker.hacker.ingverb} the ${faker.hacker.noun}`,
     status: faker.helpers.arrayElement(['On hold', 'Working']),
     quickWin: faker.datatype.boolean(),
-    projectName: `${faker.company.bsBuzz()} ${faker.company.bsNoun()}`,
+    name: `${faker.company.bsBuzz()} ${faker.company.bsNoun()}`,
     priorityScore: faker.datatype.number(1, 5),
     platform: faker.word.noun(),
     ecd: faker.datatype.datetime(Date.now())
