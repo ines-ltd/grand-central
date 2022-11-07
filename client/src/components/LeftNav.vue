@@ -26,7 +26,7 @@ const { navState } = useNav()
   </nav>
 </template>
 
-<style>
+<style scoped>
 nav {
   width: var(--nav-width);
   height: calc(100vh - var(--header-height));

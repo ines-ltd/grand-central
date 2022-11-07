@@ -59,6 +59,12 @@
 
 <style scoped>
 
+form {
+  width: 30em;
+  padding: 1em;
+  box-sizing: border-box;
+}
+
 h2 {
   margin-bottom: 1em;
 }

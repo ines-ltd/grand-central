@@ -5,14 +5,16 @@ import { useApi } from '../composables/api'
 import { useAuth } from '../composables/auth'
 import { truncate } from '../utils'
 import RequestForm from '../components/RequestForm.vue'
+import AssignForm from '../components/AssignForm.vue'
 import Table from '../components/Table.vue'
+import Modal from '../components/Modal.vue'
 
 const api = useApi()
 const { user } = useAuth()
 
 // form state
-const form = reactive({
-  show: false
+const modals = reactive({
+  newRequest: false
 })
 
 // headers
@@ -51,11 +53,12 @@ async function fetchRequests () {
 
 async function deleteRequests () {
   const s = selectedRows.value.length > 1 ? 's' : ''
-  const confMsg = `Are sure sure you want to delete ${selectedRows.value.length} request${s}`
-  if (!window.confirm(confMsg)) return
+  const txt = `Are sure sure you want to delete ${selectedRows.value.length} request${s}`
+  if (!window.confirm(txt)) return
+  // Delete from the database
   const res = await api.post('/request/delete', { requests: selectedRows.value })
   if (res.ok) {
-    requests.value = requests.value.filter(r => !selectedRows.value.includes(r))
+    await fetchRequests()
     selectedRows.value = []
   }
 }
@@ -69,7 +72,7 @@ async function deleteRequests () {
     <button
       v-if="user.isCustomer"
       v-text="'New'"
-      @click="form.show = true"
+      @click="modals.newRequest = true"
     />
     <template v-if="(user.isManager || user.isAdmin) && selectedRows.length > 0">
       <button
@@ -88,21 +91,26 @@ async function deleteRequests () {
     </template>
   </div>
 
-  <Transition name="fade" mode="out-in">
-    <RequestForm
-      v-if="form.show"
-      @hide="form.show = false"
-      @submit="fetchRequests"
-    />
-    <Table
-      v-else-if="requests.length"
-      :key="requests.length"
-      :data="requests"
-      :headers="headers"
-      :maps="maps"
-      @checked="(checked) => selectedRows = [...checked]"
-    />
-  </Transition>
+  <Table
+    v-if="requests.length"
+    :key="requests.length"
+    :data="requests"
+    :headers="headers"
+    :maps="maps"
+    @checked="(checked) => selectedRows = [...checked]"
+  />
+
+  <Modal
+    v-model:show="modals.newRequest"
+    @submit="fetchRequests"
+  >
+    <RequestForm @hide="modals.newRequest = false" />
+  </Modal>
+
+  <Modal>
+    <AssignForm />
+  </Modal>
+
 
 </template>
 

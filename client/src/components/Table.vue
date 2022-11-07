@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, computed, ref, watch, defineEmits } from 'vue'
+import { reactive, computed, ref, watch } from 'vue'
 import { pick } from '../utils'
 
 const props = defineProps({
