@@ -4,17 +4,18 @@ import { format } from 'date-fns'
 import { useApi } from '../composables/api'
 import { useAuth } from '../composables/auth'
 import { truncate } from '../utils'
-import RequestForm from '../components/RequestForm.vue'
-import AssignForm from '../components/AssignForm.vue'
 import Table from '../components/Table.vue'
 import Modal from '../components/Modal.vue'
+import RequestForm from '../components/RequestForm.vue'
+import AssignForm from '../components/AssignForm.vue'
 
 const api = useApi()
 const { user } = useAuth()
 
-// form state
+// modal state
 const modals = reactive({
-  newRequest: false
+  newRequest: false,
+  assignForm: false
 })
 
 // headers
@@ -78,6 +79,7 @@ async function deleteRequests () {
       <button
         class="primary"
         v-text="'Assign'"
+        @click="modals.assignForm = true"
       />
       <button
         class="secondary"
@@ -107,8 +109,13 @@ async function deleteRequests () {
     <RequestForm @hide="modals.newRequest = false" />
   </Modal>
 
-  <Modal>
-    <AssignForm />
+  <Modal
+    v-model:show="modals.assignForm"
+  >
+    <AssignForm 
+      :requests="selectedRows"
+      @cancel="modals.assignForm = false"
+    />
   </Modal>
 
 

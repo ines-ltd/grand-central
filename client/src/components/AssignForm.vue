@@ -1,6 +1,10 @@
-<script>
-const { useApi } = require('../composables/api')
+<script setup>
+import ProfileBadge from './ProfileBadge.vue'
+import { defineProps, reactive, computed } from 'vue'
+import { useApi } from '../composables/api'
 const api = useApi()
+
+const emit = defineEmits(['cancel'])
 
 const props = defineProps({
   requests: {
@@ -9,15 +13,74 @@ const props = defineProps({
   }
 })
 
-const devs = await 
+const res = await api.get('/user?role=dev')
+const devs = res.data || []
+const selected = reactive({})
+const s = computed(() => props.requests.length > 1 ? 's' : '')
+
+function cancel () {
+  if (!window.confirm('Cancel assigning?')) return
+  selected.value = {}
+  emit('cancel')
+}
+
+async function assign () {
+  const res = await api.post('/request/assign', { devs: Object.keys(selected.value) })
+  if (res.ok) window.alert('Projects assigned :)')
+}
+
 </script>
 
 <template>
   <h1>Assign</h1>
-  <form>
-    <input type="text">
-    <input type="text">
-    <input type="text">
-    <input type="text">
-  </form>
+  <p>Assigning {{props.requests.length}} request{{s}}</p>
+  <section id="devs">
+    <ProfileBadge
+      v-for="dev in devs"
+      :key="dev.ein"
+      :profile="dev"
+      @click="selected[dev.ein] = !selected?.[dev.ein]"
+      :class="{
+        'selected': Boolean(selected?.[dev.ein]),
+        'profile': true
+      }"
+    />
+  </section>
+  <button
+    class="primary"
+    @click="assign()"
+  >
+    Save
+  </button>
+  <button
+    class="secondary"
+    @click="cancel()"
+  >
+    Cancel
+  </button>
 </template>
+
+<style scoped>
+
+#devs {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.profile {
+  box-sizing: border-box;
+  border: 2px solid transparent;
+}
+
+.selected {
+  border: 2px solid var(--primary);
+}
+
+button {
+  margin-right: 1em;
+}
+
+</style>

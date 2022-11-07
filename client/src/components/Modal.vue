@@ -52,6 +52,7 @@ const show = computed({
 }
 
 .card {
+  width: 30em;
   max-width: 100%;
   padding: 1em;
   margin: 5px;
