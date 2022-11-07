@@ -38,7 +38,6 @@ export function useApi () {
           ok: res.ok
         }
       } catch (error) {
-        console.error(error)
         return {
           data: null,
           status: res.status,

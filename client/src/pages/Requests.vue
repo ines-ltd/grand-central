@@ -1,10 +1,11 @@
 <script setup>
-import { onMounted, reactive, ref, watch } from 'vue'
+import { onMounted, reactive, ref, computed } from 'vue'
 import { format } from 'date-fns'
 import { useApi } from '../composables/api'
 import { useAuth } from '../composables/auth'
-import { truncate } from '../utils'
+import { truncate, frequency, randomColor } from '../utils'
 import Table from '../components/Table.vue'
+import PieChart from '../components/PieChart.vue'
 import Modal from '../components/Modal.vue'
 import RequestForm from '../components/RequestForm.vue'
 import AssignForm from '../components/AssignForm.vue'
@@ -64,6 +65,15 @@ async function deleteRequests () {
   }
 }
 
+async function reset () {
+  selectedRows.value = []
+  await fetchRequests()
+  console.log(requests.value)
+}
+
+// charts data
+const statusChart = computed(() => frequency(requests.value, 'status'))
+
 </script>
 
 <template>
@@ -93,9 +103,21 @@ async function deleteRequests () {
     </template>
   </div>
 
+  <div class="chart">
+    <PieChart
+      :key="requests"
+      :labels="[...statusChart.keys()]"
+      :datasets="[
+        {
+          data: [...statusChart.values()],
+          backgroundColor: ['#150485', '#590995', '#C62A88', '#03C4A1']
+        }
+      ]"
+    />
+  </div>
+
   <Table
     v-if="requests.length"
-    :key="requests.length"
     :data="requests"
     :headers="headers"
     :maps="maps"
@@ -104,9 +126,11 @@ async function deleteRequests () {
 
   <Modal
     v-model:show="modals.newRequest"
-    @submit="fetchRequests"
   >
-    <RequestForm @hide="modals.newRequest = false" />
+    <RequestForm
+      @submit="fetchRequests"
+      @hide="modals.newRequest = false"
+    />
   </Modal>
 
   <Modal
@@ -114,6 +138,7 @@ async function deleteRequests () {
   >
     <AssignForm 
       :requests="selectedRows"
+      @submit="reset"
       @cancel="modals.assignForm = false"
     />
   </Modal>
@@ -131,6 +156,11 @@ async function deleteRequests () {
 
 .requests {
   margin-top: 1em;
+}
+
+.chart {
+  height: 25vh;
+  width: 25vh;
 }
 
 </style>

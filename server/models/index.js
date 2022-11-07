@@ -17,6 +17,9 @@ User.belongsTo(User, { as: 'manager' })
 User.hasMany(Request, { foreignKey: 'ownerEin' })
 Request.belongsTo(User, { as: 'owner' })
 
+User.belongsToMany(Project, { through: 'Developer_Project' })
+Project.belongsToMany(User, { as: 'developers', through: 'Developer_Project' })
+
 User.belongsToMany(Request, { as: 'subscriptions', through: 'Subscriptions' })
 Request.belongsToMany(User, { as: 'subscribers', through: 'Subscriptions' })
 

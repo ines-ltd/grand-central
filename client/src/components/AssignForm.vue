@@ -4,7 +4,7 @@ import { defineProps, reactive, computed } from 'vue'
 import { useApi } from '../composables/api'
 const api = useApi()
 
-const emit = defineEmits(['cancel'])
+const emit = defineEmits(['cancel', 'submit'])
 
 const props = defineProps({
   requests: {
@@ -15,18 +15,28 @@ const props = defineProps({
 
 const res = await api.get('/user?role=dev')
 const devs = res.data || []
+
 const selected = reactive({})
+
 const s = computed(() => props.requests.length > 1 ? 's' : '')
+
+function reset () {
+  for (let dev in selected) delete selected[dev]
+}
 
 function cancel () {
   if (!window.confirm('Cancel assigning?')) return
-  selected.value = {}
+  reset()
   emit('cancel')
 }
 
 async function assign () {
-  const res = await api.post('/request/assign', { devs: Object.keys(selected.value) })
-  if (res.ok) window.alert('Projects assigned :)')
+  const res = await api.post('/request/assign', { devs: Object.keys(selected), requests: props.requests.map(r => r.id) })
+  if (res.ok) {
+    reset()
+    emit('submit')
+    emit('cancel')
+  }
 }
 
 </script>
