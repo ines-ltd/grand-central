@@ -116,12 +116,14 @@ function headerText (key) {
     <table>
       <tr>
         <th>
-          <input
-            type="checkbox"
-            name="select-all"
-            id="select-all"
-            v-model="selectAll"
-          >
+          <div style="width: 1em;">
+            <input
+              type="checkbox"
+              name="select-all"
+              id="select-all"
+              v-model="selectAll"
+            >
+          </div>
         </th>
         <th
           v-for="(_val, key) in displayData[0]"

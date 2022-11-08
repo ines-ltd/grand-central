@@ -68,11 +68,11 @@ async function deleteRequests () {
 async function reset () {
   selectedRows.value = []
   await fetchRequests()
-  console.log(requests.value)
 }
 
 // charts data
 const statusChart = computed(() => frequency(requests.value, 'status'))
+const urgencyChart = computed(() => frequency(requests.value, 'urgency'))
 
 </script>
 
@@ -88,6 +88,7 @@ const statusChart = computed(() => frequency(requests.value, 'status'))
     <template v-if="(user.isManager || user.isAdmin) && selectedRows.length > 0">
       <button
         class="primary"
+        style="margin-left: auto;"
         v-text="'Assign'"
         @click="modals.assignForm = true"
       />
@@ -103,17 +104,24 @@ const statusChart = computed(() => frequency(requests.value, 'status'))
     </template>
   </div>
 
-  <div class="chart">
+  <div class="charts">
     <PieChart
       :key="requests"
-      :labels="[...statusChart.keys()]"
-      :datasets="[
-        {
-          data: [...statusChart.values()],
-          backgroundColor: ['#150485', '#590995', '#C62A88', '#03C4A1']
-        }
-      ]"
+      :data="requests"
+      :aspect="1"
+      :height="300"
+      type="doughnut"
+      column="status"
     />
+    <PieChart
+      :key="requests"
+      :data="requests"
+      :aspect="2"
+      :height="300"
+      type="bar"
+      column="urgency"
+    />
+    
   </div>
 
   <Table
@@ -158,9 +166,17 @@ const statusChart = computed(() => frequency(requests.value, 'status'))
   margin-top: 1em;
 }
 
-.chart {
-  height: 25vh;
-  width: 25vh;
+.charts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: start;
+}
+
+@media (width < 1025px) {
+  .charts {
+    justify-content: center;
+  }
 }
 
 </style>

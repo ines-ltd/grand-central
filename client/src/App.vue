@@ -19,11 +19,7 @@ const { toggleNav } = useNav()
     <RouterLink to="/" class="header-item">
       <span class="bold-title">GC</span>
     </RouterLink>
-    <RouterLink to="/workflow" class="header-item first-header-item">Workflow</RouterLink>
-    <RouterLink to="/governance" class="header-item">Governance</RouterLink>
-    <RouterLink to="/raptor" class="header-item">Raptor</RouterLink>
-    <RouterLink to="/about" class="header-item">About</RouterLink>
-    <RouterLink to="/auth" class="header-item">
+    <RouterLink to="/auth" class="first-header-item header-item">
       <span
         :class="{
           'material-icons': authState.signedIn,

@@ -20,7 +20,7 @@ function randomRequest () {
     category: faker.word.noun(),
     rationale: faker.lorem.paragraph(),
     audience: faker.company.name(),
-    urgency: faker.datatype.number(1,5),
+    urgency: 1 + faker.datatype.number(4),
     status: faker.helpers.arrayElement(['Pending', 'Reviewing', 'Approved', 'Assigned', 'Complete'])
   }
 }
