@@ -53,17 +53,6 @@ async function fetchRequests () {
   requests.value = res.data || []
 }
 
-async function deleteRequests () {
-  const s = selectedRows.value.length > 1 ? 's' : ''
-  const txt = `Are sure sure you want to delete ${selectedRows.value.length} request${s}`
-  if (!window.confirm(txt)) return
-  // Delete from the database
-  const res = await api.post('/request/delete', { requests: selectedRows.value })
-  if (res.ok) {
-    await fetchRequests()
-    selectedRows.value = []
-  }
-}
 
 async function reset () {
   selectedRows.value = []
@@ -79,33 +68,14 @@ const urgencyChart = computed(() => frequency(requests.value, 'urgency'))
 <template>
 
   <div class="title">
-    <h1>{{user.isCustomer ? 'My' : ''}} Requests</h1>
+    <h1>{{user.isCustomer ? 'My' : ''}} Projects</h1>
     <button
       v-if="user.isCustomer"
       v-text="'New'"
       @click="modals.newRequest = true"
     />
     <template v-if="(user.isManager || user.isAdmin) && selectedRows.length > 0">
-      <button
-        class="primary"
-        style="margin-left: auto;"
-        v-text="'Assign'"
-        @click="modals.assignForm = true"
-      />
-      <button
-        class="secondary"
-        v-text="'Edit'"
-      />
-       <button
-        class="warning"
-        v-text="'Reject'"
-        @click="deleteRequests"
-      />
-      <button
-        class="warning"
-        v-text="'Delete'"
-        @click="deleteRequests"
-      />
+
     </template>
   </div>
 
