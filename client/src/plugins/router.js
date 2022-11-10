@@ -6,24 +6,24 @@ import Raptor from '../pages/Raptor.vue'
 import About from '../pages/About.vue'
 import Auth from '../pages/Auth.vue'
 import Requests from '../pages/Requests.vue'
+import Projects from '../pages/Projects.vue'
 
 import { useAuth } from '../composables/auth'
 const { user, authState } = useAuth()
-console.log(user.role, 'router')
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/auth',
-      component: Auth,
+      path: '/',
+      component: Home,
       meta: {
         public: true
       }
     },
     {
-      path: '/',
-      component: Home,
+      path: '/auth',
+      component: Auth,
       meta: {
         public: true
       }
@@ -51,6 +51,14 @@ const router = createRouter({
     {
       path: '/requests',
       component: Requests
+    },
+    {
+      path: '/projects',
+      component: Projects,
+      meta: {
+        protected: true,
+        roles: ['dev', 'manager', 'admin']
+      }
     }
   ]
 })

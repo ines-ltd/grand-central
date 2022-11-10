@@ -12,7 +12,7 @@ const { navState } = useNav()
     <nav id="left-nav" :class="{ 'hide': !navState.sideNav }">
     <RouterLink to="/requests" class="nav-item">Requests</RouterLink>
     <RouterLink v-if="user.role == 'customer'" to="/" class="nav-item">Subscriptions</RouterLink>
-    <RouterLink to="/" class="nav-item">Projects</RouterLink>
+    <RouterLink to="/projects" class="nav-item">Projects</RouterLink>
     <RouterLink to="/" class="nav-item">Tasks</RouterLink>
     <RouterLink to="/" class="nav-item">Analytics</RouterLink>
     <RouterLink to="/" class="nav-item">Admin</RouterLink>

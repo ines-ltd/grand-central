@@ -54,6 +54,7 @@ const config = {
     aspectRatio: props.aspect,
     plugins: {
       legend: {
+        display: ['pie', 'doughnut'].includes(props.type),
         position: 'bottom',
       },
       title: {
