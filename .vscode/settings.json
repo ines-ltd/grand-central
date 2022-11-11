@@ -2,5 +2,6 @@
   "githubPullRequests.ignoredPullRequestBranches": [
     "main"
   ],
-  "thunder-client.saveToWorkspace": true
+  "thunder-client.saveToWorkspace": true,
+  "thunder-client.workspaceRelativePath": "./server/tests"
 }

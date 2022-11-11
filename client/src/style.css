@@ -1,9 +1,9 @@
 :root {
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  --primary: #42b883;
-  --primary-dark: #33a06f;
-  --primary-light: #42d392;
-  --secondary: #003366;
+  --primary: rgb(67, 176, 114);
+  --primary-dark: rgb(54, 139, 91);
+  --primary-light: rgb(100, 233, 158);
+  --secondary: rgb(20, 32, 50);
   --warning: #cc3300;
   --header-height: 50px;
   --nav-width: 200px;

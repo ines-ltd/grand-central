@@ -77,7 +77,7 @@ const props = defineProps({
 .card {
   background-color: white;
   padding: 1em;
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 2px 2px 2px 2px gray;
   width: 100%;
   max-width: 250px;
@@ -139,6 +139,7 @@ p {
 .devs {
   margin: 0.5em 0em;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: start;
   gap: 0.5em;

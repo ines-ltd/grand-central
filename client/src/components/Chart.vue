@@ -1,49 +1,98 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, defineProps } from 'vue'
 import Chart from 'chart.js/auto'
+import { frequency, titleCase } from '../utils';
 
 const el = ref(null)
 
-const labels = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-]
+const props = defineProps({
+  data: {
+    type: Array,
+    default: []
+  },
+  type: {
+    type: String,
+    default: 'pie'
+  },
+  colors: {
+    type: Array,
+    default: ['#7400B8', '#6930C3', '#5E60CE', '#5390D9', '#64DFDF', '#72EFDD', '#80FFDB']
+  },
+  column: {
+    type: String,
+    default: ''
+  },
+  title: {
+    type: String,
+    default: ''
+  },
+  aspect: {
+    type: Number,
+    default: 0
+  },
+  height: {
+    type: Number,
+    default: 33
+  }
+})
 
-const data = {
-  labels: labels,
-  datasets: [{
-    label: 'My First dataset',
-    backgroundColor: 'rgb(255, 99, 132)',
-    borderColor: 'rgb(255, 99, 132)',
-    data: [0, 10, 5, 2, 20, 30, 45],
-  }]
-}
+const map = frequency(props.data, props.column)
 
 const config = {
-  type: 'line',
-  data: data
+  type: props.type,
+  data: {
+    labels: [...map.keys()],
+    datasets: [
+      {
+        label: props.column,
+        data: [...map.values()],
+        backgroundColor: props.colors
+      }
+    ]
+  },
+  options: {
+    aspectRatio: props.aspect,
+    plugins: {
+      legend: {
+        display: ['pie', 'doughnut'].includes(props.type),
+        position: 'bottom',
+      },
+      title: {
+        text: Boolean(props.title) ? props.title : titleCase(props.column),
+        position: 'top',
+        display: true
+      }
+    }
+  }
 }
 
 onMounted(() => {
-  console.log(el)
   const chart = new Chart(el.value, config)
-  console.log(chart)
 })
 
 </script>
 
 <template>
-  <div class="wrapper">
+  <div
+    class="card"
+    :style="{
+      'height': props.height.toString() + 'px',
+      'width': (props.aspect * props.height).toString() + 'px',
+      'max-width': '100%'
+    }"
+  >
     <canvas id="chart" ref="el" />
   </div>
 </template>
 
 <style scoped>
-.wrapper {
-  max-width: 60em;
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 1em;
+  margin: 1em;
+  box-shadow: 2px 2px 2px 2px gray;
 }
+
 </style>

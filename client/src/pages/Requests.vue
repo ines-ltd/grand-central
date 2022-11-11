@@ -5,7 +5,7 @@ import { useApi } from '../composables/api'
 import { useAuth } from '../composables/auth'
 import { truncate, frequency, randomColor } from '../utils'
 import Table from '../components/Table.vue'
-import PieChart from '../components/PieChart.vue'
+import Chart from '../components/Chart.vue'
 import Modal from '../components/Modal.vue'
 import RequestForm from '../components/RequestForm.vue'
 import AssignForm from '../components/AssignForm.vue'
@@ -16,7 +16,12 @@ const { user } = useAuth()
 // modal state
 const modals = reactive({
   newRequest: false,
-  assignForm: false
+  assignForm: false,
+  detailView: false
+})
+
+const charts = reactive({
+  show: false
 })
 
 // headers
@@ -38,6 +43,15 @@ const maps = {
   rationale: r => truncate(r)
 }
 
+// detail row
+
+const detailRow = reactive({})
+
+function openDetails (row) {
+  Object.assign(detailRow, row)
+  modals.detailView = true
+}
+
 // selected rows
 const selectedRows = ref([])
 
@@ -57,22 +71,22 @@ async function deleteRequests () {
   const s = selectedRows.value.length > 1 ? 's' : ''
   const txt = `Are sure sure you want to delete ${selectedRows.value.length} request${s}`
   if (!window.confirm(txt)) return
-  // Delete from the database
   const res = await api.post('/request/delete', { requests: selectedRows.value })
-  if (res.ok) {
-    await fetchRequests()
-    selectedRows.value = []
-  }
+  if (res.ok) reset()
+}
+
+async function rejectRequests () {
+  const s = selectedRows.value.length > 1 ? 's' : ''
+  const txt = `Are sure sure you want to reject ${selectedRows.value.length} request${s}`
+  if (!window.confirm(txt)) return
+  const res = await api.put('/request/reject', { requests: selectedRows.value })
+  if (res.ok) reset()
 }
 
 async function reset () {
   selectedRows.value = []
   await fetchRequests()
 }
-
-// charts data
-const statusChart = computed(() => frequency(requests.value, 'status'))
-const urgencyChart = computed(() => frequency(requests.value, 'urgency'))
 
 </script>
 
@@ -85,6 +99,12 @@ const urgencyChart = computed(() => frequency(requests.value, 'urgency'))
       v-text="'New'"
       @click="modals.newRequest = true"
     />
+    <button
+      class="secondary"
+      @click="charts.show = !charts.show"
+    >
+      Insights
+    </button>
     <template v-if="(user.isManager || user.isAdmin) && selectedRows.length > 0">
       <button
         class="primary"
@@ -99,7 +119,7 @@ const urgencyChart = computed(() => frequency(requests.value, 'urgency'))
        <button
         class="warning"
         v-text="'Reject'"
-        @click="deleteRequests"
+        @click="rejectRequests"
       />
       <button
         class="warning"
@@ -109,8 +129,11 @@ const urgencyChart = computed(() => frequency(requests.value, 'urgency'))
     </template>
   </div>
 
-  <div class="charts">
-    <PieChart
+  <div
+    v-if="charts.show"
+    class="charts"
+  >
+    <Chart
       :key="requests"
       :data="requests"
       :aspect="1"
@@ -118,7 +141,7 @@ const urgencyChart = computed(() => frequency(requests.value, 'urgency'))
       type="doughnut"
       column="status"
     />
-    <PieChart
+    <Chart
       :key="requests"
       :data="requests"
       :aspect="2"
@@ -126,7 +149,6 @@ const urgencyChart = computed(() => frequency(requests.value, 'urgency'))
       type="bar"
       column="urgency"
     />
-    
   </div>
 
   <Table
@@ -135,6 +157,7 @@ const urgencyChart = computed(() => frequency(requests.value, 'urgency'))
     :headers="headers"
     :maps="maps"
     @checked="(checked) => selectedRows = [...checked]"
+    @open="(row) => openDetails(row)"
   />
 
   <Modal
@@ -156,6 +179,11 @@ const urgencyChart = computed(() => frequency(requests.value, 'urgency'))
     />
   </Modal>
 
+  <Modal
+    v-model:show="modals.detailView"
+  >
+    <pre>{{ detailRow }}</pre>
+  </Modal>
 
 </template>
 
@@ -176,6 +204,7 @@ const urgencyChart = computed(() => frequency(requests.value, 'urgency'))
   flex-wrap: wrap;
   align-items: center;
   justify-content: start;
+  gap: 1em;
 }
 
 @media (width < 1025px) {

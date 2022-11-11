@@ -26,7 +26,8 @@ const router = createRouter({
       component: Auth,
       meta: {
         public: true
-      }
+      },
+      name: 'auth'
     },
     {
       path: '/workflow',

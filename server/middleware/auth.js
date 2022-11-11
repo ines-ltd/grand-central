@@ -12,7 +12,7 @@ async function auth (req, res, next) {
     if (!decoded) return res.sendStatus(403)
 
     const user = await User.findByPk(decoded.ein, { attributes: { exclude: ['password'] } })
-    if (!user) return res.sendStatus(404)
+    if (!user) return res.status(404).send({ error: 'User not found.' })
 
     req.user = user
     next()

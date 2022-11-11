@@ -35,16 +35,17 @@ async function submit (e) {
     
     <template v-else>
       <h1>Hey, {{ user.firstName }}!</h1>
-      <button class="dashboard-btn">
-        Go to dashboard
-      </button>
+      <RouterLink to="/requests">
+        <button class="dashboard-btn">
+          Go to dashboard
+        </button>
+      </RouterLink>
       <button
-      v-text="'Sign out'"
-      type="button"
-      class="secondary"
-      @click="signOut"
+        v-text="'Sign out'"
+        type="button"
+        class="secondary"
+        @click="signOut"
       />
-      <pre>{{ user }}</pre>
     </template>
     
   </div>
@@ -61,6 +62,15 @@ h1 {
   height: 100%;
   display: grid;
   place-content: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  display: block;
+  width: 100%;
 }
 
 input {

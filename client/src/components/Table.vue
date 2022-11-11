@@ -17,46 +17,14 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['checked'])
+const emit = defineEmits(['checked', 'open'])
 
 // Selected Rows
 const checkedRows = ref([])
-const selectAll = ref(false)
-
-watch ([checkedRows, selectAll], ([checked, select], [oldChecked, oldSelect]) => {
-
-  const l = data.value.length
-  // not all rows are checked and selectAll becomes true
-  if (checked.length < l && !oldSelect && select) {
-    checkedRows.value = sortedData.value
-    return
-  }
-
-  // all rows are selected and selectAll becomes false
-  if (checked.length === l && oldSelect && !select) {
-    checkedRows.value = []
-    return
-  }
-
-  // everything is selected and selectAll is true but a row becomes unselected
-  if (oldChecked.length === l && checked.length < l && select) {
-    selectAll.value = false
-  }
-
-  // everything becomes selected but selectAll is false
-  if (oldChecked.length < l && checked.length === l && !select) {
-    selectAll.value = true
-  }
-
-  // if checked rows changes, emit the event
-  if (oldChecked.length !== checked.length) {
-    emit('checked', checked)
-  }
-
-})
 
 // Wrangling data
 const data = computed(() => [...props.data])
+watch(data, () => checkedRows.value = [])
 
 const sort = reactive({
   key: null,
@@ -109,13 +77,42 @@ function headerText (key) {
   
 }
 
+let wait
+let timer
+function toggleChecked (i) {
+
+  if (wait) return
+  wait = true
+
+  timer = setTimeout(() => {
+    
+    const row = sortedData.value[i]
+    const isChecked = checkedRows.value.includes(row)
+    if (isChecked) {
+      checkedRows.value = checkedRows.value.filter(r => r.id !== row.id)
+    } else {
+      checkedRows.value.push(row)
+    }
+    wait = false
+    emit('checked', checkedRows.value)
+
+  }, 200)
+
+}
+
+function openDetails (i) {
+  clearTimeout(timer)
+  wait = false
+  emit('open', sortedData.value[i])
+}
+
 </script>
 
 <template>
   <div class="wrapper">
     <table>
       <tr>
-        <th>
+        <!-- <th>
           <div style="width: 1em;">
             <input
               type="checkbox"
@@ -124,7 +121,7 @@ function headerText (key) {
               v-model="selectAll"
             >
           </div>
-        </th>
+        </th> -->
         <th
           v-for="(_val, key) in displayData[0]"
           :key="key"
@@ -135,8 +132,13 @@ function headerText (key) {
       <tr
         v-for="(item, i) in displayData"
         :key="`row-${i}`"
+        :class="{
+          'selected': checkedRows.map(r => r.id).includes(sortedData[i].id)
+        }"
+        @click="toggleChecked(i)"
+        @dblclick="openDetails(i)"
       >
-        <td>
+        <!-- <td>
           <input
             v-model="checkedRows"
             type="checkbox"
@@ -144,7 +146,7 @@ function headerText (key) {
             :id="`checkbox-${i}`"
             :value="sortedData[i]"
           >
-        </td>
+        </td> -->
         <td
           v-for="(val, key) in item"
           :key="`cell-${key}-${i}`"
@@ -165,17 +167,34 @@ div.wrapper {
 table {
   margin: 1em;
   border-collapse: collapse;
-  border: 2px solid rgb(200,200,200);
   font-size: smaller;
+  box-shadow: 2px 2px 2px 1px gray;
+  border-radius: 10px;
+}
+
+table th:first-child {
+  border-top-left-radius: 10px;
+}
+
+table th:last-child {
+  border-top-right-radius: 10px;
+}
+
+table tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+    
+table tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
 }
 
 td, th {
-  border: 1px solid rgb(190,190,190);
   padding: 10px 10px;
 }
 
 th {
-  background-color: rgb(235,235,235);
+  background-color: var(--secondary);
+  color: whitesmoke;
   cursor: pointer;
 }
 
@@ -183,12 +202,18 @@ td {
   text-align: center;
 }
 
-tr:nth-child(even) td {
-  background-color: rgb(250,250,250);
+tr td {
+  background-color: white;
 }
 
-tr:nth-child(odd) td {
-  background-color: rgb(245,245,245);
+tr:hover td {
+  background-color: #42b88330;
+  cursor: pointer;
+}
+
+tr.selected td {
+  color: white;
+  background-color: var(--primary);
 }
 
 caption {
