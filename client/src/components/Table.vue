@@ -138,7 +138,6 @@
   }
 
   table {
-    margin: 1em;
     border-collapse: collapse;
     font-size: smaller;
     box-shadow: 2px 2px 2px 1px gray;

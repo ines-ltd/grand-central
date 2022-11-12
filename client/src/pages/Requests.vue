@@ -191,6 +191,7 @@
     display: flex;
     align-items: center;
     gap: 1em;
+    margin-bottom: 1em;
   }
 
   .requests {
