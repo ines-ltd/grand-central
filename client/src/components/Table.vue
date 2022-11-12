@@ -1,6 +1,6 @@
 <script setup>
   import { reactive, computed, ref, watch } from 'vue'
-  import { titleCase } from '../utils';
+  import { titleCase } from '../utils'
 
   const props = defineProps({
     data: {
@@ -11,12 +11,22 @@
       type: Object,
       default: {},
     },
+    selected: {
+      type: Array,
+      default: [],
+    },
   })
 
-  const emit = defineEmits(['checked', 'open'])
+  const emit = defineEmits(['update:selected', 'open'])
 
-  const checkedRows = ref([])
-  watch(props.data, () => (checkedRows.value = []))
+  const selectedRows = computed({
+    get() {
+      return props.selected
+    },
+    set(val) {
+      emit('update:selected', val)
+    },
+  })
 
   const sort = reactive({
     key: null,
@@ -58,11 +68,10 @@
 
   const click = reactive({
     wait: false,
-    timer: null
+    timer: null,
   })
 
-  function rowClick (item) {
-
+  function rowClick(item) {
     if (click.wait) {
       clearTimeout(click.timer)
       click.wait = false
@@ -75,14 +84,13 @@
       toggleChecked(item)
     }, 200)
   }
-  
+
   function toggleChecked(item) {
-      if (checkedRows.value.includes(item)) {
-        checkedRows.value = checkedRows.value.filter((r) => r.id !== item.id)
-      } else {
-        checkedRows.value.push(item)
-      }
-      emit('checked', checkedRows.value)
+    if (selectedRows.value.includes(item)) {
+      selectedRows.value = selectedRows.value.filter((r) => r.id !== item.id)
+    } else {
+      selectedRows.value.push(item)
+    }
   }
 
   function openDetails(item) {
@@ -105,7 +113,7 @@
         v-for="(item, i) in sortedData"
         :key="`row-${i}`"
         :class="{
-          selected: checkedRows.includes(item),
+          selected: selectedRows.includes(item),
         }"
         @click="rowClick(item)"
       >
@@ -115,6 +123,7 @@
           v-text="
             props.meta[key].map ? props.meta[key].map(item[key]) : item[key]
           "
+          :style="{ 'text-align': props.meta[key].align || 'left' }"
         />
       </tr>
     </table>
@@ -163,7 +172,7 @@
     cursor: pointer;
   }
 
-  td {
+  td.center {
     text-align: center;
   }
 

@@ -1,31 +1,44 @@
 const { faker } = require('@faker-js/faker')
+const { titleCase } = require('../utils')
 
-function randomUser () {
+function randomUser() {
   const firstName = faker.name.firstName()
   const lastName = faker.name.lastName()
   return {
     firstName,
     lastName,
     imgUrl: faker.image.avatar(),
-    role: faker.helpers.arrayElement(['customer', 'customer', 'dev', 'manager', 'admin']),
+    role: faker.helpers.arrayElement([
+      'customer',
+      'customer',
+      'dev',
+      'manager',
+      'admin',
+    ]),
     email: faker.internet.email(firstName, lastName, 'openreach.com'),
-    password: 'password'
+    password: 'password',
   }
 }
 
-function randomRequest () {
+function randomRequest() {
   return {
-    name: `${faker.company.bsBuzz()} ${faker.company.bsNoun()}`,
+    name: titleCase(`${faker.company.bsBuzz()} ${faker.company.bsNoun()}`),
     description: faker.lorem.paragraph(),
-    category: faker.word.noun(),
+    category: titleCase(faker.word.noun()),
     rationale: faker.lorem.paragraph(),
     audience: faker.company.name(),
     urgency: 1 + faker.datatype.number(4),
-    status: faker.helpers.arrayElement(['Pending', 'Reviewing', 'Approved', 'Assigned', 'Complete'])
+    status: faker.helpers.arrayElement([
+      'Pending',
+      'Reviewing',
+      'Approved',
+      'Assigned',
+      'Complete',
+    ]),
   }
 }
 
-function randomProject () {
+function randomProject() {
   return {
     holdReason: `${faker.hacker.ingverb} the ${faker.hacker.noun}`,
     status: faker.helpers.arrayElement(['On hold', 'Working']),
@@ -33,18 +46,18 @@ function randomProject () {
     name: `${faker.company.bsBuzz()} ${faker.company.bsNoun()}`,
     priorityScore: faker.datatype.number(1, 5),
     platform: faker.word.noun(),
-    ecd: faker.datatype.datetime(Date.now())
+    ecd: faker.datatype.datetime(Date.now()),
   }
 }
 
-function randomComment () {
+function randomComment() {
   return {
-    content: faker.hacker.phrase()
+    content: faker.hacker.phrase(),
   }
 }
 
-function createArrayOf (count, func) {
-  return new Array(count).fill(null).map(_ => func())
+function createArrayOf(count, func) {
+  return new Array(count).fill(null).map((_) => func())
 }
 
 scrape = [
@@ -59,9 +72,8 @@ scrape = [
     mgrSurname: 'Elite',
     mgrEmailAddress: 'blackrock@owners.com',
     mgrOuc: 'GOD',
-    
   },
-    {
+  {
     ein: '456456456',
     forename: 'Liz',
     surname: 'Truss',
@@ -72,9 +84,8 @@ scrape = [
     mgrSurname: 'Johnson',
     mgrEmailAddress: 'iAmCorrupt@gov.com',
     mgrOuc: 'BN3',
-    
   },
-      {
+  {
     ein: '753753753',
     forename: 'Kier',
     surname: 'Starmer',
@@ -85,9 +96,8 @@ scrape = [
     mgrSurname: 'Blair',
     mgrEmailAddress: 'war@gov.com',
     mgrOuc: 'BN',
-    
   },
-        {
+  {
     ein: '951951951',
     forename: 'Lucifer',
     surname: 'MorningStar',
@@ -98,9 +108,8 @@ scrape = [
     mgrSurname: 'Christ',
     mgrEmailAddress: 'praisebeuponyou@gov.com',
     mgrOuc: 'CROSS',
-    
   },
-          {
+  {
     ein: '654987321',
     forename: 'Tristan',
     surname: 'Aragale',
@@ -111,15 +120,13 @@ scrape = [
     mgrSurname: 'Morest',
     mgrEmailAddress: 'Jacob.M@gov.com',
     mgrOuc: 'BN39',
-    
-  }
+  },
 ]
-
 
 module.exports = {
   users: createArrayOf(30, randomUser),
   requests: createArrayOf(50, randomRequest),
   projects: createArrayOf(10, randomProject),
   comments: createArrayOf(100, randomComment),
-  scrape
+  scrape,
 }

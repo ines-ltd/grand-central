@@ -18,6 +18,7 @@
   })
 
   const requests = reactive({ all: [], selected: [] })
+
   async function fetchRequests() {
     const res = await api.get('/request')
     requests.all = res.data || []
@@ -43,14 +44,15 @@
     status: {
       header: 'Status',
     },
+    urgency: {
+      header: 'Urgency',
+      align: 'center'
+    },
     category: {
       header: 'Category',
     },
     audience: {
       header: 'Audience',
-    },
-    urgency: {
-      header: 'Urgency',
     },
   }
 
@@ -129,7 +131,7 @@
     v-if="requests.all.length"
     :data="requests.all"
     :meta="meta"
-    @checked="(checked) => (requests.selected = [...checked])"
+    v-model:selected="requests.selected"
     @open="(row) => openDetails(row)"
   />
 
@@ -175,6 +177,11 @@
         v-text="'Delete'"
         @click="deleteRequests"
       />
+      <button
+        @click="requests.selected = []"
+      >
+        Clear
+      </button>
     </div>
   </Drawer>
 </template>

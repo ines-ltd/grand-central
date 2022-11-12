@@ -1,5 +1,4 @@
-function choose (arr, count = 1) {
-  
+function choose(arr, count = 1) {
   if (count === 1) {
     const i = Math.floor(Math.random() * arr.length)
     return arr[i]
@@ -17,7 +16,6 @@ function choose (arr, count = 1) {
   }
 
   return result
-
 }
 
 module.exports = choose
