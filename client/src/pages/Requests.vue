@@ -13,86 +13,76 @@
   const api = useApi()
   const { user } = useAuth()
 
-  // modal state
+  onMounted(() => {
+    fetchRequests()
+  })
+
+  const requests = reactive({ all: [], selected: [] })
+  async function fetchRequests() {
+    const res = await api.get('/request')
+    requests.all = res.data || []
+  }
+
   const modals = reactive({
     newRequest: false,
     assignForm: false,
     detailView: false,
   })
 
-  const charts = reactive({
-    show: false,
-  })
+  const charts = reactive({ show: false })
 
-  // headers
+  // only keys in the meta are displayed in the table
   const meta = {
     createdAt: {
       header: 'Created',
-      map: (d) => format(new Date(d), 'dd/MM/yyyy')
+      map: (d) => format(new Date(d), 'dd/MM/yyyy'),
     },
     name: {
-      header: 'Name'
+      header: 'Name',
     },
     status: {
-      header: 'Status'
+      header: 'Status',
     },
     category: {
-      header: 'Category'
+      header: 'Category',
     },
     audience: {
-      header: 'Audience'
+      header: 'Audience',
     },
     urgency: {
-      header: 'Urgency'
+      header: 'Urgency',
     },
   }
 
-  // detail row
-
+  // content of the detail modal
   const detailRow = reactive({})
-
   function openDetails(row) {
     Object.assign(detailRow, row)
     modals.detailView = true
   }
 
-  // selected rows
-  const selectedRows = ref([])
-
-  onMounted(() => {
-    fetchRequests()
-  })
-
-  // requests
-  const requests = ref([])
-
-  async function fetchRequests() {
-    const res = await api.get('/request')
-    requests.value = res.data || []
-  }
-
   async function deleteRequests() {
-    const s = selectedRows.value.length > 1 ? 's' : ''
-    const txt = `Are sure sure you want to delete ${selectedRows.value.length} request${s}`
+    const s = requests.selected.length > 1 ? 's' : ''
+    const txt = `Are sure sure you want to delete ${requests.selected.length} request${s}`
     if (!window.confirm(txt)) return
     const res = await api.post('/request/delete', {
-      requests: selectedRows.value,
+      requests: requests.selected,
     })
     if (res.ok) reset()
   }
 
   async function rejectRequests() {
-    const s = selectedRows.value.length > 1 ? 's' : ''
-    const txt = `Are sure sure you want to reject ${selectedRows.value.length} request${s}`
+    const s = requests.selected.length > 1 ? 's' : ''
+    const txt = `Are sure sure you want to reject ${requests.selected.length} request${s}`
     if (!window.confirm(txt)) return
     const res = await api.put('/request/reject', {
-      requests: selectedRows.value,
+      requests: requests.selected,
     })
     if (res.ok) reset()
   }
 
   async function reset() {
-    selectedRows.value = []
+    requests.selected = []
     await fetchRequests()
   }
 </script>
@@ -118,16 +108,16 @@
     class="charts"
   >
     <Chart
-      :key="requests"
-      :data="requests"
+      :key="requests.all"
+      :data="requests.all"
       :aspect="1"
       :height="300"
       type="doughnut"
       column="status"
     />
     <Chart
-      :key="requests"
-      :data="requests"
+      :key="requests.all"
+      :data="requests.all"
       :aspect="2"
       :height="300"
       type="bar"
@@ -136,10 +126,10 @@
   </div>
 
   <Table
-    v-if="requests.length"
-    :data="requests"
+    v-if="requests.all.length"
+    :data="requests.all"
     :meta="meta"
-    @checked="(checked) => (selectedRows = [...checked])"
+    @checked="(checked) => (requests.selected = [...checked])"
     @open="(row) => openDetails(row)"
   />
 
@@ -152,7 +142,7 @@
 
   <Modal v-model:show="modals.assignForm">
     <AssignForm
-      :requests="selectedRows"
+      :requests="requests.selected"
       @submit="reset"
       @cancel="modals.assignForm = false"
     />
@@ -162,7 +152,9 @@
     <pre>{{ detailRow }}</pre>
   </Modal>
 
-  <Drawer :show="(user.isManager || user.isAdmin) && selectedRows.length > 0">
+  <Drawer
+    :show="(user.isManager || user.isAdmin) && requests.selected.length > 0"
+  >
     <div class="drawer-buttons">
       <button
         class="primary"
