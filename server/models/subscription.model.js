@@ -4,7 +4,7 @@ const db = require('../db/db')
 class Subscription extends Model { }
 
 Subscription.init({
-subId: {
+  subId: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true

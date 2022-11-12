@@ -12,7 +12,7 @@ app.get('/ping', (req, res) => {
   })
 })
 
-for (let [route, handler] of Object.entries(router)) {
+for (const [route, handler] of Object.entries(router)) {
   app.use('/' + route, handler)
 }
 

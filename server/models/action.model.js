@@ -18,15 +18,15 @@ Action.init({
     allowNull: false
   },
   storyPoints: {
-    type: DataTypes.NUMBER,    
+    type: DataTypes.NUMBER,
     allowNull: false
   },
   moscow: {
-    type: DataTypes.STRING,    
+    type: DataTypes.STRING,
     allowNull: false
   },
   parentId: {
-    type: DataTypes.NUMBER,    
+    type: DataTypes.NUMBER,
     allowNull: false
   }
 

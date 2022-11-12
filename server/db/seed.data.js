@@ -1,7 +1,7 @@
 const { faker } = require('@faker-js/faker')
 const { titleCase } = require('../utils')
 
-function randomUser() {
+function randomUser () {
   const firstName = faker.name.firstName()
   const lastName = faker.name.lastName()
   return {
@@ -13,14 +13,14 @@ function randomUser() {
       'customer',
       'dev',
       'manager',
-      'admin',
+      'admin'
     ]),
     email: faker.internet.email(firstName, lastName, 'openreach.com'),
-    password: 'password',
+    password: 'password'
   }
 }
 
-function randomRequest() {
+function randomRequest () {
   return {
     name: titleCase(`${faker.company.bsBuzz()} ${faker.company.bsNoun()}`),
     description: faker.lorem.paragraph(),
@@ -33,12 +33,12 @@ function randomRequest() {
       'Reviewing',
       'Approved',
       'Assigned',
-      'Complete',
-    ]),
+      'Complete'
+    ])
   }
 }
 
-function randomProject() {
+function randomProject () {
   return {
     holdReason: `${faker.hacker.ingverb} the ${faker.hacker.noun}`,
     status: faker.helpers.arrayElement(['On hold', 'Working']),
@@ -46,17 +46,17 @@ function randomProject() {
     name: `${faker.company.bsBuzz()} ${faker.company.bsNoun()}`,
     priorityScore: faker.datatype.number(1, 5),
     platform: faker.word.noun(),
-    ecd: faker.datatype.datetime(Date.now()),
+    ecd: faker.datatype.datetime(Date.now())
   }
 }
 
-function randomComment() {
+function randomComment () {
   return {
-    content: faker.hacker.phrase(),
+    content: faker.hacker.phrase()
   }
 }
 
-function createArrayOf(count, func) {
+function createArrayOf (count, func) {
   return new Array(count).fill(null).map((_) => func())
 }
 
@@ -71,7 +71,7 @@ scrape = [
     mgrForename: 'Corporate',
     mgrSurname: 'Elite',
     mgrEmailAddress: 'blackrock@owners.com',
-    mgrOuc: 'GOD',
+    mgrOuc: 'GOD'
   },
   {
     ein: '456456456',
@@ -83,7 +83,7 @@ scrape = [
     mgrForename: 'Borris',
     mgrSurname: 'Johnson',
     mgrEmailAddress: 'iAmCorrupt@gov.com',
-    mgrOuc: 'BN3',
+    mgrOuc: 'BN3'
   },
   {
     ein: '753753753',
@@ -95,7 +95,7 @@ scrape = [
     mgrForename: 'Tony',
     mgrSurname: 'Blair',
     mgrEmailAddress: 'war@gov.com',
-    mgrOuc: 'BN',
+    mgrOuc: 'BN'
   },
   {
     ein: '951951951',
@@ -107,7 +107,7 @@ scrape = [
     mgrForename: 'Jesus',
     mgrSurname: 'Christ',
     mgrEmailAddress: 'praisebeuponyou@gov.com',
-    mgrOuc: 'CROSS',
+    mgrOuc: 'CROSS'
   },
   {
     ein: '654987321',
@@ -119,8 +119,8 @@ scrape = [
     mgrForename: 'Jacob',
     mgrSurname: 'Morest',
     mgrEmailAddress: 'Jacob.M@gov.com',
-    mgrOuc: 'BN39',
-  },
+    mgrOuc: 'BN39'
+  }
 ]
 
 module.exports = {
@@ -128,5 +128,5 @@ module.exports = {
   requests: createArrayOf(50, randomRequest),
   projects: createArrayOf(10, randomProject),
   comments: createArrayOf(100, randomComment),
-  scrape,
+  scrape
 }

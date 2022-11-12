@@ -7,5 +7,5 @@ module.exports = {
   auth,
   user,
   request,
-  project,
+  project
 }

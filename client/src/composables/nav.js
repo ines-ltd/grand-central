@@ -9,10 +9,8 @@ function toggleNav () {
 }
 
 export function useNav () {
-
   return {
     navState,
     toggleNav
   }
-
 }

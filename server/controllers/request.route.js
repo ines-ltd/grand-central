@@ -43,13 +43,11 @@ router.get('/', auth, async (req, res) => {
   }
 })
 
-
-
 /**
  * Update
  */
 
- router.put('/reject', auth, async (req, res) => {
+router.put('/reject', auth, async (req, res) => {
   if (!(['dev', 'manager', 'admin'].includes(req.user.role))) return res.sendStatus(403)
   if (!req.body.requests) return res.sendStatus(400)
   await Request.update({ status: 'Rejected' }, {
@@ -105,18 +103,17 @@ router.post('/delete', auth, async (req, res) => {
     res.status(500).send(error)
   }
 })
-  
+
 /**
  * Assign
  */
 router.post('/assign', auth, async (req, res) => {
-
   if (!req.user.role === 'manager' && !req.user.role === 'admin') res.sendStatus(403)
 
   const project = await Project.create({ name: 'Created a project', priorityScore: 3, quickWin: true })
   const requests = await Request.findAll({ where: { id: { [Op.in]: req.body.requests } } })
-  const devs = await User.findAll({ where: { ein: { [Op.in]: req.body.devs  } } })
-  
+  const devs = await User.findAll({ where: { ein: { [Op.in]: req.body.devs } } })
+
   await project.addRequests(requests)
   await project.addDevelopers(devs)
   await Request.update({ status: 'Assigned' }, { where: { id: { [Op.in]: req.body.requests } } })
@@ -141,7 +138,7 @@ router.post('/:id/subscribe', auth, async (req, res) => {
 /**
  * Unsubscribe
  */
- router.delete('/:id/subscribe', auth, async (req, res) => {
+router.delete('/:id/subscribe', auth, async (req, res) => {
   try {
     const request = await Request.findByPk(req.params.id)
     if (!request) return res.sendStatus(404)

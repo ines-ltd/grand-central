@@ -3,5 +3,5 @@ const titleCase = require('./titleCase')
 
 module.exports = {
   choose,
-  titleCase,
+  titleCase
 }

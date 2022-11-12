@@ -1,4 +1,4 @@
-function choose(arr, count = 1) {
+function choose (arr, count = 1) {
   if (count === 1) {
     const i = Math.floor(Math.random() * arr.length)
     return arr[i]

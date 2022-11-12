@@ -1,7 +1,6 @@
 const { User } = require('../../models')
 
 describe('Users', () => {
-
   const data = [
     {
       firstName: 'Joshua',
@@ -25,7 +24,7 @@ describe('Users', () => {
     return Promise.all(data.map(u => User.destroy({ where: { email: u.email } })))
   })
 
-  test('should have first name, last name and email', async () => { 
+  test('should have first name, last name and email', async () => {
     const user = await User.findOne({ where: { email: 'jh@ines.dev' } })
     expect(user.firstName).toBe('Joshua')
     expect(user.lastName).toBe('Haines')
@@ -43,5 +42,4 @@ describe('Users', () => {
     await customer.setManager(manager)
     expect(customer.managerEin).toBe(manager.ein)
   })
-
 })

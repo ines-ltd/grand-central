@@ -1,17 +1,16 @@
 export function useApi () {
-
   return {
 
     serialize (form) {
       return Array
         .from(new FormData(form))
-        .reduce((obj, [key, val]) => ({...obj, [key]: val || null}), {})
+        .reduce((obj, [key, val]) => ({ ...obj, [key]: val || null }), {})
     },
 
     async fetch (endpoint, data = null, options = {}) {
       const config = {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json'
         }
       }
@@ -44,7 +43,6 @@ export function useApi () {
           ok: res.ok
         }
       }
-
     },
 
     async get (endpoint, options = {}) {
@@ -69,5 +67,4 @@ export function useApi () {
     }
 
   }
-
 }

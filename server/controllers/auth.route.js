@@ -19,10 +19,9 @@ router.post('/signup', async (req, res) => {
 })
 
 router.post('/signin', async (req, res) => {
-
   const { name: email, pass: password } = basic(req)
 
-  const user = await User.findOne({  where: { email } })
+  const user = await User.findOne({ where: { email } })
   if (!user) return res.status(404).send({ msg: 'User not found.' })
 
   const result = await bcrypt.compare(password, user.password)
@@ -43,13 +42,11 @@ router.get('/verify', auth, (req, res) => {
 })
 
 function createTokens (user) {
-
   const payload = (({ email, ein }) => ({ email, ein }))(user)
   const token = jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn: '1d' })
   const refresh = jwt.sign(payload, process.env.REFRESH_SECRET)
 
   return { token, refresh }
-
 }
 
 module.exports = router

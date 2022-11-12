@@ -1,7 +1,6 @@
 const { User, Request } = require('../../models')
 
 describe('For users and requests', () => {
-
   const users = [
     {
       firstName: 'Simon',
@@ -43,7 +42,7 @@ describe('For users and requests', () => {
     ])
   })
 
-  test('a user should be able to own a request', async () => { 
+  test('a user should be able to own a request', async () => {
     const owner = await User.findOne({ where: { email: users[0].email } })
     const request = await Request.findOne({ where: { name: requests[0].name } })
     await request.setOwner(owner)
@@ -59,5 +58,4 @@ describe('For users and requests', () => {
     const subs = await request.getSubscriber()
     expect(subs.length).toBe(2)
   })
-
 })

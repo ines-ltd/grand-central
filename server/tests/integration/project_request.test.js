@@ -1,7 +1,6 @@
 const { Request, Project } = require('../../models')
 
 describe('For projects and tests', () => {
-
   const data = {
     requests: [
       {
@@ -29,7 +28,7 @@ describe('For projects and tests', () => {
         quickWin: false,
         projectName: 'Spectre',
         priorityScore: 7,
-        platform: 'Sky',
+        platform: 'Sky'
       }
     ]
   }
@@ -45,5 +44,4 @@ describe('For projects and tests', () => {
     const projects = await request.getProjects()
     expect(projects.length).toBeGreaterThan(0)
   })
-
 })

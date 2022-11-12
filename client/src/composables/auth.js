@@ -43,12 +43,11 @@ if (!state.signedIn && localStorage.hasOwnProperty('user')) {
 }
 
 async function signIn (email, password) {
-
   state.loading = true
 
   const res = await api.post('/auth/signin', {}, {
     headers: {
-      'Authorization': `Basic ${btoa(email + ':' + password)}`
+      Authorization: `Basic ${btoa(email + ':' + password)}`
     }
   })
 
@@ -64,7 +63,6 @@ async function signIn (email, password) {
   state.loading = false
 
   return userData
-
 }
 
 function signOut () {
@@ -76,12 +74,10 @@ function signOut () {
 }
 
 export function useAuth () {
-
   return {
     authState: state,
     user,
     signIn,
     signOut
   }
-
 }

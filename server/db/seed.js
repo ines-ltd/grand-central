@@ -3,7 +3,7 @@ const { User, Request, Project, Scrape } = require('../models/index')
 const { choose } = require('../utils')
 const data = require('./seed.data')
 
-async function seed() {
+async function seed () {
   await db.sync({ force: true })
 
   // create the data
@@ -19,26 +19,26 @@ async function seed() {
   const admins = users.filter((u) => u.role === 'admin')
 
   // set some managers
-  for (let user of [...customers, ...devs]) {
+  for (const user of [...customers, ...devs]) {
     await user.setManager(choose(managers))
   }
 
   // set owners of requests
-  for (let request of requests) {
+  for (const request of requests) {
     const owner = choose(customers)
     await request.setOwner(owner)
     await request.addSubscriber(owner)
   }
 
   // add some subscribers
-  for (let request of requests) {
+  for (const request of requests) {
     await request.addSubscribers(
       choose(customers, Math.floor(Math.random() * 10))
     )
   }
 
   // attach requests to projects
-  for (let request of requests) {
+  for (const request of requests) {
     await request.addProject(choose(projects))
   }
 }

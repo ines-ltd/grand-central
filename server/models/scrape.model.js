@@ -45,7 +45,6 @@ Scrape.init({
     type: DataTypes.NUMBER,
     allowNull: false
   }
-  
 
 }, { sequelize: db })
 
