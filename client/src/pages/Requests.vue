@@ -132,7 +132,7 @@
     :data="requests.all"
     :meta="meta"
     v-model:selected="requests.selected"
-    @open="(row) => openDetails(row)"
+    @open="openDetails"
   />
 
   <Modal v-model:show="modals.newRequest">
